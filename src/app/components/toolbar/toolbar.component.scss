@@ -1,0 +1,18 @@
+.toolbar {
+  padding: 0px 20px;
+  min-width: 100%;
+  border-bottom: 1px solid #ccc;
+}
+
+mat-icon {
+  line-height: 26px;
+}
+.icon {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  li + li {
+    margin-left: 5px;
+  }
+}
+

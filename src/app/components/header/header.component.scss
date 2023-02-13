@@ -1,0 +1,39 @@
+.header {
+  height: 50px;
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 0px 10px;
+}
+
+.header__logo {
+  margin-right: 10px;
+  img {
+    max-height: 40px;
+    max-width: 40px;
+    cursor: pointer;
+  }
+}
+
+.header__form {
+  color: #777;
+  margin-right: 10px;
+  input {
+    min-width: 1px;
+    border: 1px solid transparent;
+    overflow: hidden;
+    min-height: 26px;
+    font-size: 18px;
+    padding: 4px 7px;
+    border-radius: 3px;
+    &:hover {
+      border: 1px solid #ccc;
+    }
+    &:focus {
+      border: 2px solid #000;
+    }
+  }
+}
+
+
