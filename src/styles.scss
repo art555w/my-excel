@@ -1,1 +1,219 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/*Обнуление*/
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus, :active {
+  outline: none;
+}
+
+a:focus, a:active {
+  outline: none;
+}
+
+nav, footer, header, aside {
+  display: block;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input, button, textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a, a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/*--------------------*/
+
+
+.icon__box {
+  height: 24px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  &:hover {
+    background-color: rgba(204, 204, 204, 0.42);
+  }
+
+  mat-icon {
+    font-size: 18px;
+    line-height: 23px;
+    cursor: pointer;
+    border-radius: 8px;
+    color: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.table {
+  font-size: 13px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  min-height: 20px;
+  height: 24px;
+
+  & > .row-resize {
+    display: none;
+  }
+}
+
+.row-info {
+  position: relative;
+  display: flex;
+  height: 100%;
+  max-width: 46px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.row-start {
+  border-right: 4px solid #ccc;
+  border-bottom: 4px solid #ccc;
+}
+
+.row-data {
+  display: flex;
+}
+
+.column {
+  position: relative;
+  border-right: 2px solid #ccc;
+  border-bottom: 2px solid #ccc;
+  background-color: rgba(217, 217, 217, 0.33);
+  min-width: 120px;
+  min-height: 24px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell {
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding-left: 3px;
+  overflow: visible;
+  min-width: 40px;
+  min-height: 100%;
+  width: 120px;
+  white-space: nowrap;
+  outline: none;
+}
+
+.row-resize, .col-resize {
+  position: absolute;
+  background-color: transparent;
+  right: 0;
+  bottom: 0;
+
+  &:hover {
+    background-color: rgba(0, 0, 255, 0.58);
+  }
+}
+
+.row-resize {
+  left: 0;
+  height: 4px;
+  cursor: row-resize;
+}
+.row-resize.active {
+  &::after {
+    position: absolute;
+    content: '';
+    background-color: rgba(0, 0, 255, 0.58);
+    bottom: 1px;
+    min-width: 1000vh;
+    height: 1px;
+  }
+}
+
+.col-resize {
+  top: 0;
+  width: 4px;
+  right: -1px;
+  cursor: col-resize;
+}
+
+.col-resize.active {
+  &::after {
+    position: absolute;
+    content: '';
+    background-color: rgba(0, 0, 255, 0.58);
+    right: 1px;
+    width: 1px;
+    min-height: 1000vh;
+  }
+}
+
+[id='0'] {
+  .row-resize {
+    display: none;
+  }
+}

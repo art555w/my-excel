@@ -1,0 +1,29 @@
+.formula {
+  height: 25px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  font-size: 13px;
+  align-items: center;
+  padding: 0px 5px;
+  line-height: 18px;
+}
+
+.formula__info {
+  max-width: 85px;
+  width: 100%;
+  border-right: 2px solid #ccc;
+}
+
+.formula__ico {
+  text-align: center;
+  width: 42px;
+  color: #ccc;
+  font-weight: 500;
+  font-size: 18px;
+  border-right: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+.formula__input {
+  width: 100%;
+}
