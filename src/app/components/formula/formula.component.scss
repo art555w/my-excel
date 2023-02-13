@@ -1,8 +1,15 @@
+@import "src/variabels";
+
 .formula {
-  height: 25px;
+  position: absolute;
+  top: $header-height+$toolbar-height;
+  left: 0;
+  right: 0;
+  height: $formula-height;
   border-bottom: 1px solid #ccc;
   display: flex;
   font-size: 13px;
+  width: 100%;
   align-items: center;
   padding: 0px 5px;
   line-height: 18px;

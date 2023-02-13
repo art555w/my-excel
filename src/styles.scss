@@ -1,13 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import "src/variabels";
 
-html, body {
-  height: 100%;
-}
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
 
 /*Обнуление*/
 * {
@@ -35,14 +29,17 @@ nav, footer, header, aside {
 }
 
 html, body {
-  height: 100%;
-  width: 100%;
-  font-size: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  margin: 0;
+  padding: 0;
   line-height: 1;
   font-size: 14px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+
 }
 
 input, button, textarea {
@@ -106,13 +103,21 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.excel {
+  position: relative;
+}
+
 .table {
   font-size: 13px;
+  position: absolute;
+  overflow-x: auto;
+  left: 0;
+  right: 0;
+  top: $header-height+$formula-height+$toolbar-height;
 }
 
 .row {
   display: flex;
-  flex-direction: row;
   min-height: 20px;
   height: 24px;
 
@@ -126,9 +131,10 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   height: 100%;
   max-width: 46px;
-  width: 100%;
+  min-width: 46px;
   align-items: center;
   justify-content: center;
+  background-color: rgba(217, 217, 217, 0.33);
   border-right: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
@@ -183,6 +189,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 4px;
   cursor: row-resize;
 }
+
 .row-resize.active {
   &::after {
     position: absolute;
@@ -216,4 +223,13 @@ h1, h2, h3, h4, h5, h6 {
   .row-resize {
     display: none;
   }
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

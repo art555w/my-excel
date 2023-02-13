@@ -1,6 +1,11 @@
+@import "src/variabels";
+
 .header {
-  height: 50px;
-  min-width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $header-height;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #ccc;
