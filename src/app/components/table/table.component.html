@@ -7,52 +7,31 @@
     </div>
 
     <div class="row-data">
-      <div class="column">
-        A
+      <div
+        class="column"
+        *ngFor="let col of cols; let idx = index"
+      >
+        {{ col }}
         <div class="col-resize"></div>
       </div>
-      <div class="column">B</div>
-      <div class="column">C</div>
     </div>
 
   </div>
-  <div class="row">
+
+  <div
+    class="row"
+    *ngFor="let row of rows; let numRow = index"
+  >
 
     <div class="row-info">
-      1
+      {{ numRow + 1 }}
       <div class="row-resize"></div>
     </div>
 
     <div class="row-data">
-      <app-cell></app-cell>
-      <app-cell></app-cell>
-      <app-cell></app-cell>
-    </div>
-
-  </div>
-  <div class="row">
-
-    <div class="row-info">
-      2
-    </div>
-
-    <div class="row-data">
-      <app-cell></app-cell>
-      <app-cell></app-cell>
-      <app-cell></app-cell>
-    </div>
-
-  </div>
-  <div class="row">
-
-    <div class="row-info">
-      3
-    </div>
-
-    <div class="row-data">
-      <app-cell></app-cell>
-      <app-cell></app-cell>
-      <app-cell></app-cell>
+      <app-cell
+        *ngFor="let col of cols; let numCol = index"
+      ></app-cell>
     </div>
 
   </div>

@@ -1,6 +1,12 @@
+@import "src/variabels";
+
 .toolbar {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: $header-height;
+  height: $toolbar-height;
   padding: 0px 20px;
-  min-width: 100%;
   border-bottom: 1px solid #ccc;
 }
 
