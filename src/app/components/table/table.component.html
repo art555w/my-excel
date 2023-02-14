@@ -10,29 +10,30 @@
       <div
         class="column"
         *ngFor="let col of cols; let idx = index"
+        [attr.data-id]="col | getCharCode"
+        (mousedown)="$event.preventDefault()"
       >
-        {{ col }}
-        <div class="col-resize"></div>
+
+        {{ col | getCharCode}}
+
+        <div class="col-resize" appResizeCol></div>
       </div>
     </div>
 
   </div>
 
-  <div
-    class="row"
-    *ngFor="let row of rows; let numRow = index"
-  >
+  <div class="row" *ngFor="let row of rows; let numRow = index">
 
-    <div class="row-info">
+    <div class="row-info" (mousedown)="$event.preventDefault()">
       {{ numRow + 1 }}
-      <div class="row-resize"></div>
+      <div class="row-resize" appResizeRow></div>
     </div>
 
-    <div class="row-data">
-      <app-cell
-        *ngFor="let col of cols; let numCol = index"
-      ></app-cell>
-    </div>
+    <app-cell
+      *ngFor="let col of cols"
+      [id]="[col | getCharCode] + ':' + [numRow + 1]"
+      [numCol]="col"
+    ></app-cell>
 
   </div>
 
