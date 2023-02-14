@@ -21,14 +21,10 @@ export class TableComponent implements OnInit {
     const cols = this.CODE.B - this.CODE.A + 1
     this.cols = new Array(cols)
       .fill('')
-      .map((_, index) => this.getCharCode(index))
+      .map((val, index) => this.CODE.A + index)
 
     this.rows = new Array(this.amountRows)
       .fill('')
-  }
-
-  getCharCode(num: number): string {
-    return String.fromCharCode(num + this.CODE.A)
   }
 
 }
