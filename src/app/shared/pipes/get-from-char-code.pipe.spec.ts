@@ -1,8 +1,8 @@
-import { GetCharCodePipe } from './get-char-code.pipe';
+import { GetFromCharCodePipe } from './get-from-char-code.pipe';
 
 describe('GetCharCodePipe', () => {
   it('create an instance', () => {
-    const pipe = new GetCharCodePipe();
+    const pipe = new GetFromCharCodePipe();
     expect(pipe).toBeTruthy();
   });
 });

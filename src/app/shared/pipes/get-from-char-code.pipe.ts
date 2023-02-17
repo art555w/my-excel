@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'getCharCode'
+  name: 'getFromCharCode'
 })
-export class GetCharCodePipe implements PipeTransform {
+export class GetFromCharCodePipe implements PipeTransform {
 
   transform(value: number): unknown {
     return String.fromCharCode(value)

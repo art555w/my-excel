@@ -2,6 +2,15 @@
 @import "src/variabels";
 
 
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
 
 /*Обнуление*/
 * {
@@ -135,8 +144,8 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   background-color: rgba(217, 217, 217, 0.33);
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-right: 1px solid rgba(126, 126, 126, 0.65);
+  border-bottom: 1px solid rgba(126, 126, 126, 0.65);
 }
 
 .row-start {
@@ -150,8 +159,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .column {
   position: relative;
-  border-right: 2px solid #ccc;
-  border-bottom: 2px solid #ccc;
+  border-right: 1px solid rgba(126, 126, 126, 0.65);
+  border-bottom: 1px solid rgba(126, 126, 126, 0.65);
   background-color: rgba(217, 217, 217, 0.33);
   width: 120px;
   min-height: 24px;
@@ -224,11 +233,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-html, body {
-  height: 100%;
+.selected {
+  outline: 2px solid blue;
 }
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
