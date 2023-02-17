@@ -11,10 +11,11 @@ import {ToolbarComponent} from './components/toolbar/toolbar.component';
 import {FormulaComponent} from './components/formula/formula.component';
 import {TableComponent} from './components/table/table.component';
 import {MatIconModule} from "@angular/material/icon";
-import {CellComponent} from "./shared/cell/cell.component";
-import {GetCharCodePipe} from './shared/pipes/get-char-code.pipe';
+import {GetFromCharCodePipe} from './shared/pipes/get-from-char-code.pipe';
 import {ResizeRowDirective} from './shared/directives/resize-row.directive';
 import {ResizeColDirective} from "./shared/directives/resize-col.directive";
+import { CellStateDirective } from './shared/directives/cell-state.directive';
+import { SelectCellDirective } from './shared/directives/select-cell.directive';
 
 @NgModule({
   declarations: [
@@ -25,10 +26,11 @@ import {ResizeColDirective} from "./shared/directives/resize-col.directive";
     ToolbarComponent,
     FormulaComponent,
     TableComponent,
-    CellComponent,
-    GetCharCodePipe,
+    GetFromCharCodePipe,
     ResizeRowDirective,
-    ResizeColDirective
+    ResizeColDirective,
+    CellStateDirective,
+    SelectCellDirective
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,9 @@ import {ResizeColDirective} from "./shared/directives/resize-col.directive";
     BrowserAnimationsModule,
     MatIconModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

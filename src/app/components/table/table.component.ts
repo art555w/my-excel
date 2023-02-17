@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -11,6 +11,8 @@ export class TableComponent implements OnInit {
     A: 65,
     B: 90
   }
+  @ViewChild('cell', {static: true})
+  cell!: ElementRef
   @Input()
   amountRows = 20
   rows!: Array<any>

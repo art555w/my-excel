@@ -1,31 +1,37 @@
 import {Directive, ElementRef, HostListener, Renderer2} from '@angular/core';
+import {AllCellService} from "../services/all-cell.service";
 
 @Directive({
   selector: '[appResizeRow]'
 })
 export class ResizeRowDirective {
 
-  constructor(private renderer: Renderer2, private el: ElementRef) { }
+  private subMousemove!: any
+  private subMouseup!: any
+
+  constructor(private renderer: Renderer2, private el: ElementRef) {
+  }
 
   @HostListener('mousedown', ['$event'])
   onMousedown(event: MouseEvent) {
     event.preventDefault()
     this.renderer.addClass(this.el.nativeElement, 'active')
 
-    const row = this.el.nativeElement.closest('.row')
+    const id = this.el.nativeElement.dataset.resize
+    const row = this.el.nativeElement.closest(`[data-row="${id}"]`)
     const coords = row.getBoundingClientRect()
     const start = event.y
 
-    document.onmousemove = (ev) => {
+    this.subMousemove = this.renderer.listen('document', 'mousemove', (ev: MouseEvent) => {
       event.preventDefault()
       const value = ev.y - coords.y < 20
         ? 20
         : ev.y - coords.y
 
       this.renderer.setStyle(this.el.nativeElement, 'top', value + 'px')
-    }
+    })
 
-    document.onmouseup = (ev) => {
+    this.subMouseup = this.renderer.listen('document', 'mouseup', (ev: MouseEvent) => {
       this.renderer.removeClass(this.el.nativeElement, 'active')
       const width = ev.y - start + coords.height < 20
         ? 20
@@ -35,9 +41,9 @@ export class ResizeRowDirective {
       this.renderer.setStyle(this.el.nativeElement, 'top', null)
       this.renderer.setStyle(this.el.nativeElement, 'bottom', 0)
 
-      document.onmousemove = null
-      document.onmouseup = null
-    }
+      this.subMousemove()
+      this.subMouseup()
+    })
 
   }
 
