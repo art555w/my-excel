@@ -177,6 +177,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 120px;
   white-space: nowrap;
   outline: none;
+  cursor: default;
 }
 
 .row-resize, .col-resize {
@@ -233,7 +234,31 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.selected {
-  outline: 2px solid blue;
+
+
+.selected-group {
+  background-color: rgba(124, 176, 255, 0.21);
 }
+
+.b-top {
+  border-top: 1px solid blue;
+}
+.b-right {
+  border-right: 1px solid blue;
+}
+.b-left {
+  border-left: 1px solid blue;
+}
+.b-bottom {
+  border-bottom: 1px solid blue;
+}
+.selected {
+  border: 2px solid blue;
+  background-color: transparent;
+  cursor: text;
+}
+
+
+
+
 
