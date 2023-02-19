@@ -1,6 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SelectCellService} from "../services/select-cell.service";
-import {SelectCellDirective} from "../directives/select-cell.directive";
 
 @Component({
   selector: 'app-cell',
@@ -14,15 +12,34 @@ export class CellComponent implements OnInit {
   @Input() col = 0
   id = ''
 
-  constructor(private selectCellService: SelectCellService, private selectCellDirective: SelectCellDirective) {
+  constructor() {
   }
 
   ngOnInit() {
-    this.id = `${this.numCol + 1}:${this.numRow + 1}`
+    this.id = `${this.numCol}:${this.numRow}`
   }
 
 
   onKeydown(event: KeyboardEvent) {
-
+    const keys = ['ArrowRight', 'Tab', 'ArrowDown', 'Enter', 'ArrowUp', 'ArrowLeft',]
+    const {key} = event
+    if (keys.includes(key)) {
+      switch (key) {
+        case 'ArrowRight':
+        case 'Tab':
+          // this.selectCellDirective.selCell(`${this.numCol + 2}:${this.numRow + 1}`)
+          console.log('tab')
+          break
+        case 'ArrowDown':
+        case 'Enter':
+          console.log(key)
+          break
+        case 'ArrowUp':
+          console.log(key)
+          break
+        case 'ArrowLeft':
+          console.log(key)
+      }
+    }
   }
 }

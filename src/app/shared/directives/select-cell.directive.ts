@@ -46,6 +46,7 @@ export class SelectCellDirective implements OnInit {
             this.isGrabbing = true
             this.clear()
             this.grabCell = this.selectCellService.selectCell(this.lastId)
+            console.log(this.grabCell, this.selectCellService.selectedGroup)
             this.selectGroup(this.currentId, this.lastId)
           }
         })

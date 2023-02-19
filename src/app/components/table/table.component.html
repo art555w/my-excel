@@ -1,4 +1,4 @@
-<div class="table" appSelectCell>
+<div class="table" appSelectCellCell>
 
   <div class="row" id="0">
 
@@ -36,8 +36,8 @@
     <div class="row-data">
       <app-cell
         *ngFor="let col of cols; let numCol = index"
-        [numCol]="numCol"
-        [numRow]="numRow"
+        [numCol]="numCol + 1"
+        [numRow]="numRow + 1"
         [col]="col"
       ></app-cell>
     </div>

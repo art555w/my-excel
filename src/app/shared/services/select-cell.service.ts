@@ -10,9 +10,9 @@ export class SelectCellService {
   selectedGroup: Element[] = []
   groupId: string[] = []
 
+
   constructor(private allCellService: AllCellService) {
   }
-
 
   selectCell(id: string): Element {
     this.clear()
