@@ -19,6 +19,9 @@ export class TableComponent implements OnInit {
   rows!: Array<any>
   cols!: Array<any>
 
+  constructor() {
+  }
+
 
   ngOnInit() {
     this.cols = new Array(this.amountCols)

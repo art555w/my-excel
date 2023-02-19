@@ -13,7 +13,6 @@ export class SelectCellDirective implements OnInit {
   currentId = ''
   lastId = ''
   currentCell!: Element
-  grabCell!: Element
   border!: IBorder
   isGrabbing = false
   ids: string[] = []
@@ -25,7 +24,9 @@ export class SelectCellDirective implements OnInit {
     private selectCellService: SelectCellService,
     private allCellService: AllCellService,
     private tableComponent: TableComponent
-  ) {}
+  ) {
+  }
+
   ngOnInit() {
   }
 
@@ -35,17 +36,14 @@ export class SelectCellDirective implements OnInit {
       if (!event.shiftKey) {
         this.clear()
         this.currentId = el.id
-        this.currentCell = this.selectCellService.selectCell(this.currentId)
-        this.grabCell = this.currentCell
 
-        this.selectCell(this.currentCell)
+        this.selectCell(this.currentId)
 
         this.unMousemove = this.renderer.listen('document', 'mousemove', (event) => {
-          this.lastId = event.target.dataset.type === 'cell' ? event.target.id : this.lastId
-          if (this.grabCell.id !== event.target.id) {
+          if (this.lastId !== event.target.id) {
             this.isGrabbing = true
             this.clear()
-            this.grabCell = this.selectCellService.selectCell(this.lastId)
+            this.lastId = event.target.dataset.type === 'cell' ? event.target.id : this.lastId
             this.selectGroup(this.currentId, this.lastId)
           }
         })
@@ -55,7 +53,6 @@ export class SelectCellDirective implements OnInit {
         this.clear()
         this.isGrabbing = true
         this.lastId = el.id
-        this.currentId = this.currentCell.id
 
         this.selectGroup(this.currentId, this.lastId)
 
@@ -64,20 +61,13 @@ export class SelectCellDirective implements OnInit {
         this.unMousemove()
         if (this.isGrabbing) {
           this.selectCellService.selectedGroup.forEach((cell) => {
-            if (this.border["border-top"].includes(cell.id)) {
-              this.renderer.addClass(cell, 'b-top')
-            }
-            if (this.border["border-right"].includes(cell.id)) {
-              this.renderer.addClass(cell, 'b-right')
-            }
-            if (this.border["border-left"].includes(cell.id)) {
-              this.renderer.addClass(cell, 'b-left')
-            }
-            if (this.border["border-bottom"].includes(cell.id)) {
-              this.renderer.addClass(cell, 'b-bottom')
-            }
+            Object.keys(this.border).forEach(key => {
+              // @ts-ignore
+              if (this.border[key].includes(cell.id)) {
+                this.renderer.addClass(cell, key)
+              }
+            })
           })
-          this.renderer.addClass(this.currentCell, 'selected')
           this.isGrabbing = false
           this.unSubMouseup()
         }
@@ -85,9 +75,12 @@ export class SelectCellDirective implements OnInit {
     }
   }
 
-  selectCell(currentEl: Element) {
-    this.renderer.addClass(currentEl, 'selected')
+  selectCell(id: string) {
+    this.clear()
+    this.currentCell = this.selectCellService.selectCell(id)
+    this.renderer.addClass(this.currentCell, 'selected')
   }
+
   selectGroup(currentId: string, lastId: string) {
     this.renderer.addClass(this.currentCell, 'selected')
     const cols = getByRange(
@@ -111,13 +104,11 @@ export class SelectCellDirective implements OnInit {
   }
 
   private clear() {
+    const clearClass = ['selected-group', 'selected', 'b-top', 'b-right', 'b-left', 'b-bottom']
     this.allCellService.getAllCell().forEach(cell => {
-      this.renderer.removeClass(cell, 'selected-group')
-      this.renderer.removeClass(cell, 'selected')
-      this.renderer.removeClass(cell, 'b-top')
-      this.renderer.removeClass(cell, 'b-right')
-      this.renderer.removeClass(cell, 'b-left')
-      this.renderer.removeClass(cell, 'b-bottom')
+      clearClass.forEach((cl) => {
+        this.renderer.removeClass(cell, cl)
+      })
     })
     this.selectCellService.clear()
   }

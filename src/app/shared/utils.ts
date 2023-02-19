@@ -16,10 +16,10 @@ export function getByRange(start: number, finish: number): number[] {
 
 export function getBorder(idSelCell: string[]): IBorder {
   const res: IBorder = {
-    'border-top': [],
-    'border-right': [],
-    'border-left': [],
-    'border-bottom': [],
+    'b-top': [],
+    'b-right': [],
+    'b-left': [],
+    'b-bottom': [],
   }
   const top = getId(idSelCell[0]).row
   const left = getId(idSelCell[0]).col
@@ -27,13 +27,13 @@ export function getBorder(idSelCell: string[]): IBorder {
   const bottom = getId(idSelCell[idSelCell.length - 1]).row
 
   idSelCell.forEach((cell) => {
-    if (getId(cell).row === top) res["border-top"].push(cell)
+    if (getId(cell).row === top) res["b-top"].push(cell)
 
-    if (getId(cell).col === left) res["border-left"].push(cell)
+    if (getId(cell).col === left) res["b-left"].push(cell)
 
-    if (getId(cell).col === right)  res["border-right"].push(cell)
+    if (getId(cell).col === right)  res["b-right"].push(cell)
 
-    if (getId(cell).row === bottom) res["border-bottom"].push(cell)
+    if (getId(cell).row === bottom) res["b-bottom"].push(cell)
   })
   return res
 }

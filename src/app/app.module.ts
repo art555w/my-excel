@@ -14,9 +14,9 @@ import {MatIconModule} from "@angular/material/icon";
 import {GetFromCharCodePipe} from './shared/pipes/get-from-char-code.pipe';
 import {ResizeRowDirective} from './shared/directives/resize-row.directive';
 import {ResizeColDirective} from "./shared/directives/resize-col.directive";
-import { CellStateDirective } from './shared/directives/cell-state.directive';
-import { SelectCellDirective } from './shared/directives/select-cell.directive';
-import { CellComponent } from './shared/cell/cell.component';
+import {CellStateDirective} from './shared/directives/cell-state.directive';
+import {SelectCellDirective} from './shared/directives/select-cell.directive';
+import {CellComponent} from './shared/cell/cell.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import { CellComponent } from './shared/cell/cell.component';
     ResizeColDirective,
     CellStateDirective,
     SelectCellDirective,
-    CellComponent
+    CellComponent,
   ],
   imports: [
     BrowserModule,

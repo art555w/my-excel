@@ -25,8 +25,8 @@ export interface IId {
 }
 
 export interface IBorder {
-  'border-top': string[],
-  'border-right': string[],
-  'border-left': string[],
-  'border-bottom': string[],
+  'b-top': string[],
+  'b-right': string[],
+  'b-left': string[],
+  'b-bottom': string[],
 }

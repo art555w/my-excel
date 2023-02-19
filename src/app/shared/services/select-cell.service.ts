@@ -8,7 +8,6 @@ export class SelectCellService {
 
   current!: Element
   selectedGroup: Element[] = []
-  groupId: string[] = []
 
   constructor(private allCellService: AllCellService) {
   }
@@ -16,7 +15,6 @@ export class SelectCellService {
 
   selectCell(id: string): Element {
     this.clear()
-    this.groupId.push(id)
     this.current = this.allCellService.getCellById(id)
     this.selectedGroup.push(this.current)
     return this.current
@@ -27,7 +25,6 @@ export class SelectCellService {
       return this.selectedGroup
     }
     this.clear()
-    this.groupId = ids
     this.selectedGroup = this.allCellService.getGroupCells(ids)
     return this.selectedGroup
   }
