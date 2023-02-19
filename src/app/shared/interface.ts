@@ -18,3 +18,15 @@ export interface ISizeState {
   width?: number,
   height?: number
 }
+
+export interface IId {
+  col: number,
+  row: number
+}
+
+export interface IBorder {
+  'border-top': string[],
+  'border-right': string[],
+  'border-left': string[],
+  'border-bottom': string[],
+}

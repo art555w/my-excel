@@ -16,6 +16,7 @@ import {ResizeRowDirective} from './shared/directives/resize-row.directive';
 import {ResizeColDirective} from "./shared/directives/resize-col.directive";
 import { CellStateDirective } from './shared/directives/cell-state.directive';
 import { SelectCellDirective } from './shared/directives/select-cell.directive';
+import { CellComponent } from './shared/cell/cell.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SelectCellDirective } from './shared/directives/select-cell.directive';
     ResizeRowDirective,
     ResizeColDirective,
     CellStateDirective,
-    SelectCellDirective
+    SelectCellDirective,
+    CellComponent
   ],
   imports: [
     BrowserModule,

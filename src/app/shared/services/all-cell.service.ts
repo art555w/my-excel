@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +6,9 @@ import { Injectable } from '@angular/core';
 export class AllCellService {
 
   cells: Array<Element> = []
-  constructor() { }
+
+  constructor() {
+  }
 
   buildCells(cell: any) {
     this.cells.push(cell)
@@ -18,6 +20,10 @@ export class AllCellService {
 
   getCols(id: string): Element[] {
     return this.cells.filter((cell) => cell.getAttribute('data-col') === id)
+  }
+
+  getCellByAttr(attr: string): Element {
+    return this.cells.filter((cell) => cell.getAttribute('data-type') === attr)[0]
   }
 
   getCellById(id: string): Element {

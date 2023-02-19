@@ -6,8 +6,9 @@ import {AllCellService} from "./all-cell.service";
 })
 export class SelectCellService {
 
-  current = ''
-  selectedGroup: string[] = []
+  current!: Element
+  selectedGroup: Element[] = []
+  groupId: string[] = []
 
   constructor(private allCellService: AllCellService) {
   }
@@ -15,18 +16,20 @@ export class SelectCellService {
 
   selectCell(id: string): Element {
     this.clear()
-    this.current = id
+    this.groupId.push(id)
+    this.current = this.allCellService.getCellById(id)
     this.selectedGroup.push(this.current)
-    return this.allCellService.getCellById(this.current)
+    return this.current
   }
 
   selectGroup(ids: string[] | null): Element[] {
     if (!ids) {
-      return this.allCellService.getGroupCells(this.selectedGroup)
+      return this.selectedGroup
     }
     this.clear()
-    this.selectedGroup = ids
-    return this.allCellService.getGroupCells(this.selectedGroup)
+    this.groupId = ids
+    this.selectedGroup = this.allCellService.getGroupCells(ids)
+    return this.selectedGroup
   }
 
   clear() {

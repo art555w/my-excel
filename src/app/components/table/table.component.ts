@@ -15,13 +15,13 @@ export class TableComponent implements OnInit {
   cell!: ElementRef
   @Input()
   amountRows = 20
+  amountCols = this.CODE.B - this.CODE.A + 1
   rows!: Array<any>
   cols!: Array<any>
 
 
   ngOnInit() {
-    const cols = this.CODE.B - this.CODE.A + 1
-    this.cols = new Array(cols)
+    this.cols = new Array(this.amountCols)
       .fill('')
       .map((val, index) => this.CODE.A + index)
 

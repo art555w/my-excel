@@ -1,4 +1,4 @@
-<div class="table">
+<div class="table" appSelectCell>
 
   <div class="row" id="0">
 
@@ -14,7 +14,6 @@
         [attr.data-col]="col | getFromCharCode"
         (mousedown)="$event.preventDefault()"
       >
-
           {{ col | getFromCharCode}}
 
         <div class="col-resize" [attr.data-resize]="col | getFromCharCode" appResizeCol></div>
@@ -35,15 +34,12 @@
     </div>
 
     <div class="row-data">
-      <div
-        appCellState
-        appSelectCell
-        class="cell"
-        contenteditable="true"
+      <app-cell
         *ngFor="let col of cols; let numCol = index"
-        [id]="[numCol + 1] + ':' + [numRow + 1]"
-        [attr.data-col]="col | getFromCharCode"
-      ></div>
+        [numCol]="numCol"
+        [numRow]="numRow"
+        [col]="col"
+      ></app-cell>
     </div>
 
 
