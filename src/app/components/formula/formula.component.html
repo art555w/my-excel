@@ -3,12 +3,12 @@
     A4
   </div>
 
-  <div class="formula__ico">
+  <div class="formula__ico" (click)="$event.preventDefault()">
     Fx
   </div>
 
   <div class="formula__input">
-      <div class="input" contenteditable="true">
+      <div class="input" contenteditable="true" (keydown)="onKeydown($event)" #input>
 
       </div>
   </div>

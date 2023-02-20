@@ -1,4 +1,7 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {FormulaService} from "../../shared/services/formula.service";
+import {SelectCellService} from "../../shared/services/select-cell.service";
+import {AllCellService} from "../../shared/services/all-cell.service";
 
 @Component({
   selector: 'app-table',
@@ -11,15 +14,13 @@ export class TableComponent implements OnInit {
     A: 65,
     B: 90
   }
-  @ViewChild('cell', {static: true})
-  cell!: ElementRef
   @Input()
   amountRows = 20
   amountCols = this.CODE.B - this.CODE.A + 1
   rows!: Array<any>
   cols!: Array<any>
 
-  constructor() {
+  constructor(private formulaService: FormulaService, private selectCellService: SelectCellService, private all: AllCellService) {
   }
 
 
@@ -30,6 +31,15 @@ export class TableComponent implements OnInit {
 
     this.rows = new Array(this.amountRows)
       .fill('')
+
+
+    this.formulaService.formText.subscribe((text) => {
+      this.selectCellService.current.nativeElement.textContent = text
+    })
   }
 
+  onKeydown() {
+    const text = this.selectCellService.current.nativeElement.textContent
+    this.formulaService.cellInput(text)
+  }
 }

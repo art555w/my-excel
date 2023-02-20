@@ -1,9 +1,9 @@
-import {Directive, HostListener, OnInit, Renderer2} from '@angular/core';
+import {Directive, ElementRef, HostListener, OnInit, Renderer2} from '@angular/core';
 import {SelectCellService} from "../services/select-cell.service";
 import {getBorder, getByRange, getId} from "../utils";
 import {AllCellService} from "../services/all-cell.service";
 import {IBorder} from "../interface";
-import {TableComponent} from "../../components/table/table.component";
+import {FormulaService} from "../services/formula.service";
 
 @Directive({
   selector: '[appSelectCell]'
@@ -12,7 +12,7 @@ export class SelectCellDirective implements OnInit {
 
   currentId = ''
   lastId = ''
-  currentCell!: Element
+  currentCell!: ElementRef
   border!: IBorder
   isGrabbing = false
   ids: string[] = []
@@ -23,7 +23,7 @@ export class SelectCellDirective implements OnInit {
     private renderer: Renderer2,
     private selectCellService: SelectCellService,
     private allCellService: AllCellService,
-    private tableComponent: TableComponent
+    private formulaService: FormulaService,
   ) {
   }
 
@@ -44,51 +44,35 @@ export class SelectCellDirective implements OnInit {
             this.isGrabbing = true
             this.clear()
             this.lastId = event.target.dataset.type === 'cell' ? event.target.id : this.lastId
-            this.selectGroup(this.currentId, this.lastId)
+            this.selectGroup(this.lastId)
           }
         })
-
-      } else {
-        event.preventDefault()
-        this.clear()
-        this.isGrabbing = true
-        this.lastId = el.id
-
-        this.selectGroup(this.currentId, this.lastId)
-
       }
       this.unSubMouseup = this.renderer.listen('document', 'mouseup', () => {
         this.unMousemove()
         if (this.isGrabbing) {
-          this.selectCellService.selectedGroup.forEach((cell) => {
-            Object.keys(this.border).forEach(key => {
-              // @ts-ignore
-              if (this.border[key].includes(cell.id)) {
-                this.renderer.addClass(cell, key)
-              }
-            })
-          })
           this.isGrabbing = false
+          this.selectGroup(this.lastId)
           this.unSubMouseup()
         }
       })
     }
   }
-
   selectCell(id: string) {
     this.clear()
     this.currentCell = this.selectCellService.selectCell(id)
-    this.renderer.addClass(this.currentCell, 'selected')
+    this.formulaService.cellInput(this.currentCell.nativeElement.textContent)
+    this.currentCell.nativeElement.focus()
+    this.renderer.addClass(this.currentCell.nativeElement, 'selected')
   }
-
-  selectGroup(currentId: string, lastId: string) {
-    this.renderer.addClass(this.currentCell, 'selected')
+  selectGroup(lastId: string) {
+    this.renderer.addClass(this.currentCell.nativeElement, 'selected')
     const cols = getByRange(
       getId(lastId).col,
-      getId(currentId).col)
+      getId(this.currentId).col)
     const rows = getByRange(
       getId(lastId).row,
-      getId(currentId).row)
+      getId(this.currentId).row)
 
     this.ids = rows.reduce((acc: string[], row) => {
       cols.forEach((col) => {
@@ -96,18 +80,24 @@ export class SelectCellDirective implements OnInit {
       })
       return acc
     }, [])
-
     this.border = getBorder(this.ids)
+    this.selectCellService.selectedGroup.forEach((cell) => {
+      Object.keys(this.border).forEach(key => {
+        // @ts-ignore
+        if (this.border[key].includes(cell.nativeElement.id)) {
+          this.renderer.addClass(cell.nativeElement, key)
+        }
+      })
+    })
     this.selectCellService.selectGroup(this.ids).forEach((cell) => {
-      this.renderer.addClass(cell, 'selected-group')
+      this.renderer.addClass(cell.nativeElement, 'selected-group')
     })
   }
-
-  private clear() {
+  clear() {
     const clearClass = ['selected-group', 'selected', 'b-top', 'b-right', 'b-left', 'b-bottom']
     this.allCellService.getAllCell().forEach(cell => {
       clearClass.forEach((cl) => {
-        this.renderer.removeClass(cell, cl)
+        this.renderer.removeClass(cell.nativeElement, cl)
       })
     })
     this.selectCellService.clear()

@@ -1,14 +1,15 @@
-import {Injectable} from '@angular/core';
+import {ElementRef, Injectable} from '@angular/core';
+import {Observable, of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AllCellService {
-
-  cells: Array<Element> = []
+export class AllCellService{
+  cells: Array<ElementRef> = []
 
   constructor() {
   }
+
 
   buildCells(cell: any) {
     this.cells.push(cell)
@@ -18,22 +19,19 @@ export class AllCellService {
     return this.cells
   }
 
-  getCols(id: string): Element[] {
-    return this.cells.filter((cell) => cell.getAttribute('data-col') === id)
+  getCols(id: string): ElementRef[] {
+    return this.cells.filter((cell) => cell.nativeElement.getAttribute('data-col') === id)
   }
 
-  getCellByAttr(attr: string): Element {
-    return this.cells.filter((cell) => cell.getAttribute('data-type') === attr)[0]
+
+  getCellById(id: string): ElementRef {
+    return this.cells.filter((cell) => cell.nativeElement.id === id)[0]
   }
 
-  getCellById(id: string): Element {
-    return this.cells.filter((cell) => cell.id === id)[0]
-  }
-
-  getGroupCells(ids: string[]): Element[] {
+  getGroupCells(ids: string[]): ElementRef[] {
     return ids.reduce((acc: any, id) => {
       this.cells.forEach(cell => {
-        if (cell.id === id) {
+        if (cell.nativeElement.id === id) {
           acc.push(cell)
         }
       })

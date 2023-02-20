@@ -48,7 +48,7 @@ export class ResizeColDirective implements OnInit {
         : ev.x - startGrabbing + coords.width
 
       allCols.forEach((column) => {
-        this.renderer.setStyle(column, 'width', width + 'px')
+        this.renderer.setStyle(column.nativeElement, 'width', width + 'px')
       })
       this.renderer.setStyle(this.el.nativeElement, 'right', -1 + 'px')
       this.renderer.setStyle(this.el.nativeElement, 'left', null)

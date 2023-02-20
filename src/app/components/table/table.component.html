@@ -1,4 +1,9 @@
-<div class="table" appSelectCell>
+<div
+  class="table"
+  appSelectCell
+  appSelectByKey
+  (keyup)="onKeydown()"
+>
 
   <div class="row" id="0">
 
@@ -34,12 +39,15 @@
     </div>
 
     <div class="row-data">
-      <app-cell
+      <div
         *ngFor="let col of cols; let numCol = index"
-        [numCol]="numCol"
-        [numRow]="numRow"
-        [col]="col"
-      ></app-cell>
+        appCellState
+        class="cell"
+        contenteditable="true"
+        [id]="[numCol + 1]+ ':' +[numRow + 1]"
+        [attr.data-col]="col | getFromCharCode"
+        [attr.data-type]="'cell'"
+      ></div>
     </div>
 
 

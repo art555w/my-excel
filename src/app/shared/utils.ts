@@ -2,15 +2,12 @@ import {IBorder, IId} from "./interface";
 
 export function getByRange(start: number, finish: number): number[] {
   const res = []
-
   if (start > finish) {
     [start, finish] = [finish, start]
   }
-
   for (let i = start; i <= finish; i++) {
     res.push(i)
   }
-
   return res
 }
 
@@ -28,11 +25,8 @@ export function getBorder(idSelCell: string[]): IBorder {
 
   idSelCell.forEach((cell) => {
     if (getId(cell).row === top) res["b-top"].push(cell)
-
     if (getId(cell).col === left) res["b-left"].push(cell)
-
     if (getId(cell).col === right)  res["b-right"].push(cell)
-
     if (getId(cell).row === bottom) res["b-bottom"].push(cell)
   })
   return res
@@ -44,6 +38,7 @@ export function getId(id: string): IId {
     row: +id.split(':')[1],
   }
 }
+
 
 
 

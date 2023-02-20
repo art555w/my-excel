@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {ElementRef, Injectable} from '@angular/core';
 import {AllCellService} from "./all-cell.service";
 
 @Injectable({
@@ -6,21 +6,21 @@ import {AllCellService} from "./all-cell.service";
 })
 export class SelectCellService {
 
-  current!: Element
-  selectedGroup: Element[] = []
+  current!: ElementRef
+  selectedGroup: ElementRef[] = []
 
   constructor(private allCellService: AllCellService) {
   }
 
 
-  selectCell(id: string): Element {
+  selectCell(id: string): ElementRef {
     this.clear()
     this.current = this.allCellService.getCellById(id)
     this.selectedGroup.push(this.current)
     return this.current
   }
 
-  selectGroup(ids: string[] | null): Element[] {
+  selectGroup(ids: string[] | null): ElementRef[] {
     if (!ids) {
       return this.selectedGroup
     }

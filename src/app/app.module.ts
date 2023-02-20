@@ -17,6 +17,7 @@ import {ResizeColDirective} from "./shared/directives/resize-col.directive";
 import {CellStateDirective} from './shared/directives/cell-state.directive';
 import {SelectCellDirective} from './shared/directives/select-cell.directive';
 import {CellComponent} from './shared/cell/cell.component';
+import {SelectByKeyDirective} from "./shared/directives/select-by-key.directive";
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {CellComponent} from './shared/cell/cell.component';
     CellStateDirective,
     SelectCellDirective,
     CellComponent,
+    SelectByKeyDirective
   ],
   imports: [
     BrowserModule,
@@ -41,6 +43,7 @@ import {CellComponent} from './shared/cell/cell.component';
     MatIconModule
   ],
   providers: [
+
   ],
   bootstrap: [AppComponent]
 })

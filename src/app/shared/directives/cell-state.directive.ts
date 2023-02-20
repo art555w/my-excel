@@ -14,7 +14,7 @@ export class CellStateDirective implements OnInit {
   }
 
   ngOnInit() {
-    this.allCell.buildCells(this.el.nativeElement)
+    this.allCell.buildCells(this.el)
   }
 
 }
