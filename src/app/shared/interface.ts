@@ -10,7 +10,6 @@ export interface IEvent {
   y?: number
 }
 
-
 export interface IBorder {
   'b-top': string[],
   'b-right': string[],

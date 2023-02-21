@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {TableTemplateService} from "../../shared/services/table-template.service";
 
 @Component({
   selector: 'app-table',
@@ -7,28 +8,15 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
-  CODE = {
-    A: 65,
-    B: 90
-  }
-  @Input()
-  amountRows = 20
-  amountCols = this.CODE.B - this.CODE.A + 1
-  rows!: Array<any>
-  cols!: Array<any>
+  cols: number[] = []
+  rows: string[] = []
 
-  constructor() {
+  constructor(private tableTemplateService: TableTemplateService) {
   }
-
 
   ngOnInit() {
-    this.cols = new Array(this.amountCols)
-      .fill('')
-      .map((val, index) => this.CODE.A + index)
-
-    this.rows = new Array(this.amountRows)
-      .fill('')
-
+    this.cols = this.tableTemplateService.getCols()
+    this.rows = this.tableTemplateService.getRows()
   }
 
 }

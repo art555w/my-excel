@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Host, HostListener, Renderer2} from '@angular/core';
+import {Directive, ElementRef, Host, HostListener, OnInit, Renderer2} from '@angular/core';
 import {SelectCellService} from "./select-cell.service";
 import {IBorder} from "../interface";
 import {AllCellService} from "../services/all-cell.service";
@@ -6,16 +6,11 @@ import {AllCellService} from "../services/all-cell.service";
 @Directive({
   selector: '[appSelectCell]'
 })
-export class SelectCellDirective {
+export class SelectCellDirective implements OnInit{
 
-  currentId = ''
-  lastId = ''
   currentCell!: ElementRef
   groupCell: ElementRef[] = []
-  isGrabbing = false
   ids: string[] = []
-  private unMousemove: any
-  private unSubMouseup: any
 
   constructor(
     private renderer: Renderer2,
@@ -24,56 +19,31 @@ export class SelectCellDirective {
   ) {
   }
 
-
-  @HostListener('mousedown', ['$event', '$event.target'])
-  onMousedown(event: MouseEvent, el: Element) {
-    if (el.getAttribute('data-type') === 'cell') {
-      if (!event.shiftKey) {
-        this.clear()
-        this.currentId = el.id
-        this.selectCell(this.currentId)
-      } else {
-        this.clear()
-        this.lastId = el.id
-        this.isGrabbing = true
-        this.selectGroup(this.lastId)
-      }
-      this.unMousemove = this.renderer.listen('document', 'mousemove', event => {
-        if (this.lastId !== event.target.id) {
-          this.clear()
-          this.isGrabbing = true
-          this.lastId = event.target.dataset.type === 'cell'
-            ? event.target.id
-            : this.lastId
-          this.selectGroup(this.lastId)
-        }
-      })
-      this.unSubMouseup = this.renderer.listen('document', 'mouseup', () => {
-        this.unMousemove()
-        if (this.isGrabbing) {
-          this.isGrabbing = false
-          this.addBorder()
-          this.unSubMouseup()
-        }
-      })
-
-    }
+  ngOnInit() {
+    this.selectCellService.selectCell$.subscribe((cell) => {
+      this.selectCell(cell)
+    })
+    this.selectCellService.selectGroup$.subscribe((cells) => {
+      this.selectGroup(cells)
+    })
   }
 
-  selectCell(id: string) {
+  selectCell(cell: ElementRef) {
     this.clear()
-    this.currentCell = this.selectCellService.selectCell(id)
+    this.currentCell = cell
     this.currentCell.nativeElement.focus()
     this.renderer.addClass(this.currentCell.nativeElement, 'selected')
   }
 
-  selectGroup(lastId: string) {
+  selectGroup(cells: ElementRef[]) {
+    this.clear()
     this.currentCell.nativeElement.focus()
     this.renderer.addClass(this.currentCell.nativeElement, 'selected')
-    this.groupCell = this.selectCellService.selectGroup(lastId)
+    this.groupCell = cells
     this.groupCell.forEach(cell => {
       this.renderer.addClass(cell.nativeElement, 'selected-group')
     })
+    this.addBorder()
   }
 
   addBorder() {

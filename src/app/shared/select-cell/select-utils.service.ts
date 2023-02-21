@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
 import {IBorder, IId} from "../interface";
+import {TableComponent} from "../../components/table/table.component";
+import {TableTemplateService} from "../services/table-template.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SelectUtilsService {
 
-  constructor() {
+  constructor(private tableTemplateService: TableTemplateService) {
   }
 
   getAllIdSelectedCells(currentId: string, lastId: string): string[] {
@@ -60,5 +62,31 @@ export class SelectUtilsService {
       col: +id.split(':')[0],
       row: +id.split(':')[1],
     }
+  }
+
+  nextCell(key: string, id: string): string {
+    let {col} = this.getId(id)
+    let {row} = this.getId(id)
+    const amountCols = this.tableTemplateService.amountCols
+    const amountRows = this.tableTemplateService.amountRows
+    const MIN_VALUE = 1
+
+    switch (key) {
+      case 'ArrowRight':
+      case 'Tab':
+        col = col === amountCols ? amountCols : col + 1
+        break
+      case 'ArrowDown':
+      case 'Enter':
+        row = row === amountRows ? amountRows : row + 1
+        break
+      case 'ArrowLeft':
+        col = col === MIN_VALUE ?MIN_VALUE : col - 1
+        break
+      case 'ArrowUp':
+        row = row === MIN_VALUE ? MIN_VALUE : row - 1
+        break
+    }
+    return `${col}:${row}`
   }
 }

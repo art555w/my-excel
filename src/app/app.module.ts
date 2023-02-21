@@ -15,6 +15,8 @@ import {GetFromCharCodePipe} from "./shared/pipes/get-from-char-code.pipe";
 import { InitCellsDirective } from './shared/directives/init-cells.directive';
 import { ResizeTableDirective } from './shared/resize-table/resize-table.directive';
 import { SelectCellDirective } from './shared/select-cell/select-cell.directive';
+import { MousedownTableDirective } from './shared/directives/mousedown-table.directive';
+import { KeydownTableDirective } from './shared/directives/keydown-table.directive';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { SelectCellDirective } from './shared/select-cell/select-cell.directive'
     GetFromCharCodePipe,
     InitCellsDirective,
     ResizeTableDirective,
-    SelectCellDirective
+    SelectCellDirective,
+    MousedownTableDirective,
+    KeydownTableDirective
   ],
   imports: [
     BrowserModule,
