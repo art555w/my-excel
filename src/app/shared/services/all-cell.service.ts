@@ -1,39 +1,37 @@
-import {Injectable} from '@angular/core';
+import {ElementRef, Injectable, QueryList} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AllCellService {
 
-  cells: Array<Element> = []
+  cells: ElementRef[] = []
+  constructor() { }
 
-  constructor() {
+  buildCells(elRef: ElementRef) {
+    this.cells.push(elRef)
   }
 
-  buildCells(cell: any) {
-    this.cells.push(cell)
-  }
-
-  getAllCell() {
+  getCells(): ElementRef[] {
     return this.cells
   }
 
-  getCols(id: string): Element[] {
-    return this.cells.filter((cell) => cell.getAttribute('data-col') === id)
+  getCols(id: string): ElementRef[] {
+    return this.cells.filter(cell => cell.nativeElement.dataset.col === id)
   }
 
-  getCellByAttr(attr: string): Element {
-    return this.cells.filter((cell) => cell.getAttribute('data-type') === attr)[0]
+  getRows(id: string):ElementRef[] {
+    return this.cells.filter(cell => cell.nativeElement.dataset.row === id)
   }
 
-  getCellById(id: string): Element {
-    return this.cells.filter((cell) => cell.id === id)[0]
+  getCellById(id: string): ElementRef {
+    return this.cells.filter((cell) => cell.nativeElement.id === id)[0]
   }
 
-  getGroupCells(ids: string[]): Element[] {
+  getGroupCells(ids: string[]): ElementRef[] {
     return ids.reduce((acc: any, id) => {
       this.cells.forEach(cell => {
-        if (cell.id === id) {
+        if (cell.nativeElement.id === id) {
           acc.push(cell)
         }
       })

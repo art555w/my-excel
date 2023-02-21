@@ -1,32 +1,23 @@
-export interface ICoords {
-  top: number
-  left: number,
-  bottom: number,
-  right: number,
-  x: number,
-  y: number,
-  width: number,
-  height: number
+import {ElementRef} from "@angular/core";
+
+export interface IResizeResponse {
+  value: number,
+  els?: ElementRef[]
 }
 
-export interface ICellState {
-  size: [ISizeState]
+export interface IEvent {
+  x?: number,
+  y?: number
 }
 
-export interface ISizeState {
-  id: string
-  width?: number,
-  height?: number
+export interface IBorder {
+  'b-top': string[],
+  'b-right': string[],
+  'b-left': string[],
+  'b-bottom': string[],
 }
 
 export interface IId {
   col: number,
   row: number
-}
-
-export interface IBorder {
-  'border-top': string[],
-  'border-right': string[],
-  'border-left': string[],
-  'border-bottom': string[],
 }

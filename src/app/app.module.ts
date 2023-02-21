@@ -11,12 +11,12 @@ import {ToolbarComponent} from './components/toolbar/toolbar.component';
 import {FormulaComponent} from './components/formula/formula.component';
 import {TableComponent} from './components/table/table.component';
 import {MatIconModule} from "@angular/material/icon";
-import {GetFromCharCodePipe} from './shared/pipes/get-from-char-code.pipe';
-import {ResizeRowDirective} from './shared/directives/resize-row.directive';
-import {ResizeColDirective} from "./shared/directives/resize-col.directive";
-import { CellStateDirective } from './shared/directives/cell-state.directive';
-import { SelectCellDirective } from './shared/directives/select-cell.directive';
-import { CellComponent } from './shared/cell/cell.component';
+import {GetFromCharCodePipe} from "./shared/pipes/get-from-char-code.pipe";
+import { InitCellsDirective } from './shared/directives/init-cells.directive';
+import { ResizeTableDirective } from './shared/resize-table/resize-table.directive';
+import { SelectCellDirective } from './shared/select-cell/select-cell.directive';
+import { MousedownTableDirective } from './shared/directives/mousedown-table.directive';
+import { KeydownTableDirective } from './shared/directives/keydown-table.directive';
 
 @NgModule({
   declarations: [
@@ -28,11 +28,11 @@ import { CellComponent } from './shared/cell/cell.component';
     FormulaComponent,
     TableComponent,
     GetFromCharCodePipe,
-    ResizeRowDirective,
-    ResizeColDirective,
-    CellStateDirective,
+    InitCellsDirective,
+    ResizeTableDirective,
     SelectCellDirective,
-    CellComponent
+    MousedownTableDirective,
+    KeydownTableDirective
   ],
   imports: [
     BrowserModule,
@@ -40,9 +40,7 @@ import { CellComponent } from './shared/cell/cell.component';
     BrowserAnimationsModule,
     MatIconModule
   ],
-  providers: [
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }
