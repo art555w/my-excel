@@ -1,4 +1,8 @@
-<div class="table">
+<div
+  class="table"
+  appResizeTable
+  appSelectCell
+>
 
   <div class="row" id="0">
 
@@ -8,11 +12,15 @@
 
     <div class="row-data">
       <div
+        appCellState
         class="column"
         *ngFor="let col of cols; let idx = index"
+        [attr.data-col]="col | getFromCharCode"
+        (mousedown)="$event.preventDefault()"
       >
-        {{ col }}
-        <div class="col-resize"></div>
+          {{ col | getFromCharCode}}
+
+        <div class="col-resize" data-type="col" [attr.data-resize]="col | getFromCharCode" appResizeCol></div>
       </div>
     </div>
 
@@ -21,18 +29,28 @@
   <div
     class="row"
     *ngFor="let row of rows; let numRow = index"
+    [attr.data-row]="numRow + 1"
   >
 
-    <div class="row-info">
+    <div class="row-info" (mousedown)="$event.preventDefault()">
       {{ numRow + 1 }}
-      <div class="row-resize"></div>
+      <div class="row-resize" data-type="row" [attr.data-resize]="numRow + 1" appResizeRow></div>
     </div>
 
     <div class="row-data">
-      <app-cell
+      <div
         *ngFor="let col of cols; let numCol = index"
-      ></app-cell>
+        appInitCells
+        class="cell"
+        contenteditable="true"
+        data-type="cell"
+        [id]="[numCol + 1]+ ':' +[numRow + 1]"
+        [attr.data-col]="col | getFromCharCode"
+        [attr.data-row]="numRow + 1"
+      ></div>
     </div>
+
+
 
   </div>
 
