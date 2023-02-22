@@ -1,12 +1,11 @@
-import {Directive, ElementRef, Host, HostListener, OnInit, Renderer2} from '@angular/core';
+import {Directive, ElementRef, OnInit, Renderer2} from '@angular/core';
 import {SelectCellService} from "./select-cell.service";
-import {IBorder} from "../interface";
 import {AllCellService} from "../services/all-cell.service";
 
 @Directive({
   selector: '[appSelectCell]'
 })
-export class SelectCellDirective implements OnInit{
+export class SelectCellDirective implements OnInit {
 
   currentCell!: ElementRef
   groupCell: ElementRef[] = []
@@ -28,14 +27,14 @@ export class SelectCellDirective implements OnInit{
     })
   }
 
-  selectCell(cell: ElementRef) {
+  selectCell(cell: ElementRef): void {
     this.clear()
     this.currentCell = cell
     this.currentCell.nativeElement.focus()
     this.renderer.addClass(this.currentCell.nativeElement, 'selected')
   }
 
-  selectGroup(cells: ElementRef[]) {
+  selectGroup(cells: ElementRef[]): void {
     this.clear()
     this.currentCell.nativeElement.focus()
     this.renderer.addClass(this.currentCell.nativeElement, 'selected')
@@ -46,7 +45,7 @@ export class SelectCellDirective implements OnInit{
     this.addBorder()
   }
 
-  addBorder() {
+  addBorder(): void {
     const border = this.selectCellService.selectBorder()
     this.groupCell.forEach(cell => {
       Object.keys(border).forEach(key => {

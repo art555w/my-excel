@@ -1,4 +1,4 @@
-import {ElementRef, Injectable, QueryList} from '@angular/core';
+import {ElementRef, Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +6,9 @@ import {ElementRef, Injectable, QueryList} from '@angular/core';
 export class AllCellService {
 
   cells: ElementRef[] = []
-  constructor() { }
+
+  constructor() {
+  }
 
   buildCells(elRef: ElementRef) {
     this.cells.push(elRef)
@@ -20,7 +22,7 @@ export class AllCellService {
     return this.cells.filter(cell => cell.nativeElement.dataset.col === id)
   }
 
-  getRows(id: string):ElementRef[] {
+  getRows(id: string): ElementRef[] {
     return this.cells.filter(cell => cell.nativeElement.dataset.row === id)
   }
 
@@ -35,6 +37,7 @@ export class AllCellService {
           acc.push(cell)
         }
       })
+      console.log(acc)
       return acc
     }, [])
   }

@@ -21,7 +21,7 @@ export class SelectCellService {
   constructor(private selectUtilsService: SelectUtilsService, private allCellService: AllCellService) {
   }
 
-  selectCell(id: string) {
+  selectCell(id: string): void {
     this.clear()
     this.currentId = id
     this.lastId = id
@@ -30,7 +30,7 @@ export class SelectCellService {
     this.selectCell$.next(this.currentCell)
   }
 
-  selectGroup(lastId: string) {
+  selectGroup(lastId: string): void {
     this.clear()
     this.lastId = lastId
     this.groupId = this.selectUtilsService.getAllIdSelectedCells(this.currentId, lastId)
