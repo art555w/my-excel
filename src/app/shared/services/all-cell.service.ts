@@ -37,7 +37,6 @@ export class AllCellService {
           acc.push(cell)
         }
       })
-      console.log(acc)
       return acc
     }, [])
   }
