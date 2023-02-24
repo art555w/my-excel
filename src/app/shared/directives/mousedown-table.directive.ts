@@ -1,24 +1,28 @@
 import {Directive, HostListener, Renderer2} from '@angular/core';
 import {SelectCellService} from "../select-cell/select-cell.service";
+import {ResizeTableDirective} from "../resize-table/resize-table.directive";
 
 @Directive({
   selector: '[appMousedownTable]'
 })
 export class MousedownTableDirective {
 
-  private unMousemove: any
-  private unSubMouseup: any
   currentId = ''
   lastId = ''
   isGrabbing = false
+  private unMousemove: any
+  private unSubMouseup: any
 
   constructor(
     private renderer: Renderer2,
     private selectCellService: SelectCellService,
-  ) { }
+    private resizeTableDirective: ResizeTableDirective
+  ) {
+  }
 
   @HostListener('mousedown', ['$event', '$event.target'])
   onMousedown(event: MouseEvent, el: Element) {
+    this.resizeTableDirective.resizeTable(event, el)
     if (el.getAttribute('data-type') === 'cell') {
       if (!event.shiftKey) {
         this.currentId = el.id
