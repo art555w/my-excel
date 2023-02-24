@@ -1,23 +1,31 @@
 import {Injectable} from '@angular/core';
-import {IEvent, IResizeResponse} from "../interface";
+import {IResizeResponse} from "../interface";
 import {AllCellService} from "../services/all-cell.service";
+import {Store} from "@ngrx/store";
+import {colState} from "../../store/actions/excel.actions";
+import {Observable, of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResizeTableService {
-  constructor(private allCellService: AllCellService) {
+
+  constructor(private allCellService: AllCellService, private store: Store) {
   }
 
-  resizeCol(id: string, startGrabbing: number, event: MouseEvent, elWidth: number): IResizeResponse {
+
+  resizeCol(id: string, startGrabbing: number, event: MouseEvent, elWidth: number): Observable<IResizeResponse> {
     const value = event.x - startGrabbing + elWidth < 40
       ? 40
       : event.x - startGrabbing + elWidth
     const els = this.allCellService.getCols(id)
-    return {
+    this.store.dispatch(colState({
+      data: {[id]: value}
+    }))
+    return of({
       value,
       els
-    }
+    })
   }
 
   resizeRow(id: string, startGrabbing: number, event: MouseEvent, elHeight: number): IResizeResponse {

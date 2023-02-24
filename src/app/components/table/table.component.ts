@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TableTemplateService} from "../../shared/services/table-template.service";
+import {Store} from "@ngrx/store";
 
 @Component({
   selector: 'app-table',
@@ -11,7 +12,8 @@ export class TableComponent implements OnInit {
   cols: number[] = []
   rows: string[] = []
 
-  constructor(private tableTemplateService: TableTemplateService) {
+
+  constructor(private tableTemplateService: TableTemplateService, private store: Store) {
   }
 
   ngOnInit() {
