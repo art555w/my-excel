@@ -8,7 +8,6 @@ import {Subject} from "rxjs";
   providedIn: 'root'
 })
 export class SelectCellService {
-
   currentCell!: ElementRef
   currentId = ''
   lastId = ''
@@ -45,5 +44,4 @@ export class SelectCellService {
   clear() {
     this.groupCells = []
   }
-
 }

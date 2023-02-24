@@ -21,3 +21,20 @@ export interface IId {
   col: number,
   row: number
 }
+
+export interface ICoords {
+  bottom: number
+  height: number
+  left: number
+  right: number
+  top: number
+  width: number
+  x: number
+  y: number
+}
+
+export interface IResizeTable {
+  size: number,
+  els: ElementRef[],
+  type: string
+}

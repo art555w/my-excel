@@ -1,4 +1,5 @@
 import {ElementRef, Injectable} from '@angular/core';
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -6,12 +7,14 @@ import {ElementRef, Injectable} from '@angular/core';
 export class AllCellService {
 
   cells: ElementRef[] = []
+  cellsGroup$: Subject<ElementRef[]> = new Subject<ElementRef[]>()
 
   constructor() {
   }
 
   buildCells(elRef: ElementRef) {
     this.cells.push(elRef)
+    this.cellsGroup$.next(this.cells)
   }
 
   getCells(): ElementRef[] {
@@ -37,7 +40,6 @@ export class AllCellService {
           acc.push(cell)
         }
       })
-      console.log(acc)
       return acc
     }, [])
   }
