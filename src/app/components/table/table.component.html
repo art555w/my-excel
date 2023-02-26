@@ -1,9 +1,9 @@
 <div
-  class="table"
+  appKeydownTable
+  appMousedownTable
   appResizeTable
   appSelectCell
-  appMousedownTable
-  appKeydownTable
+  class="table"
 >
 
   <div class="row" id="0">
@@ -13,45 +13,35 @@
     </div>
 
     <div class="row-data">
-      <div
-        appCellState
-        class="column"
+      <app-col
+        #colRef
         *ngFor="let col of cols; let idx = index"
-        [attr.data-col]="col | getFromCharCode"
-        (mousedown)="$event.preventDefault()"
-      >
-          {{ col | getFromCharCode}}
-
-        <div class="col-resize" data-type="col" [attr.data-resize]="col | getFromCharCode" appResizeCol></div>
-      </div>
+        [col]="col | getFromCharCode"
+      ></app-col>
     </div>
 
   </div>
 
   <div
-    class="row"
     *ngFor="let row of rows; let numRow = index"
     [attr.data-row]="numRow + 1"
+    class="row"
   >
 
-    <div class="row-info" (mousedown)="$event.preventDefault()">
+    <div (mousedown)="$event.preventDefault()" class="row-info">
       {{ numRow + 1 }}
-      <div class="row-resize" data-type="row" [attr.data-resize]="numRow + 1" appResizeRow></div>
+      <div [attr.data-resize]="numRow + 1" appResizeRow class="row-resize" data-type="row"></div>
     </div>
 
     <div class="row-data">
-      <div
+      <app-cell
+        #cellRef
         *ngFor="let col of cols; let numCol = index"
-        appInitCells
-        class="cell"
-        contenteditable="true"
-        data-type="cell"
-        [id]="[numCol + 1]+ ':' +[numRow + 1]"
-        [attr.data-col]="col | getFromCharCode"
-        [attr.data-row]="numRow + 1"
-      ></div>
+        [col]="col | getFromCharCode"
+        [numCol]="numCol + 1"
+        [numRow]="numRow + 1"
+      ></app-cell>
     </div>
-
 
 
   </div>

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ResizeTableService } from './resize-table.service';
+import { StoreService } from './store.service';
 
-describe('ResizeTableService', () => {
-  let service: ResizeTableService;
+describe('StoreService', () => {
+  let service: StoreService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ResizeTableService);
+    service = TestBed.inject(StoreService);
   });
 
   it('should be created', () => {

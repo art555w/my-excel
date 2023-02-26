@@ -1,0 +1,10 @@
+<div
+  (mousedown)="$event.preventDefault()"
+  [attr.data-col]="col"
+  [ngStyle]="colWidth"
+  class="column"
+>
+  {{ col}}
+
+  <div [attr.data-resize]="col" appResizeCol class="col-resize" data-type="col"></div>
+</div>

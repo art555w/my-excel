@@ -38,3 +38,12 @@ export interface IResizeTable {
   els: ElementRef[],
   type: string
 }
+
+export interface IDefaultStyle {
+  width: string,
+  height: string
+}
+
+export interface IStoreData {
+  [key: string]: any
+}
