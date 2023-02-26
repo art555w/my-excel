@@ -1,4 +1,4 @@
-import {Directive, HostListener, Renderer2} from '@angular/core';
+import {Directive, HostListener} from '@angular/core';
 import {SelectCellService} from "../select-cell/select-cell.service";
 import {SelectUtilsService} from "../select-cell/select-utils.service";
 
@@ -12,7 +12,6 @@ export class KeydownTableDirective {
   lastId = ''
 
   constructor(
-    private renderer: Renderer2,
     private selectCellService: SelectCellService,
     private selectUtils: SelectUtilsService
   ) {

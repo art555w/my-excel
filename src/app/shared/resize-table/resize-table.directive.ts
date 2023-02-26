@@ -1,12 +1,13 @@
-import {Directive, ElementRef, OnInit, Renderer2} from '@angular/core';
-import {ResizeTableService} from "./resize-table.service";
+import {Directive, Renderer2} from '@angular/core';
 import {ICoords} from "../interface";
 import {ResizeUtilsService} from "./resize-utils.service";
+import {Store} from "@ngrx/store";
+import {resizeTable} from "../../store/actions/excel.actions";
 
 @Directive({
   selector: '[appResizeTable]'
 })
-export class ResizeTableDirective implements OnInit {
+export class ResizeTableDirective {
   subMousemove!: any
   subMouseup!: any
   startGrabbing!: number
@@ -16,17 +17,12 @@ export class ResizeTableDirective implements OnInit {
   coords!: ICoords
   cursorPos = ''
 
+
   constructor(
     private renderer: Renderer2,
-    private resizeTableService: ResizeTableService,
     private resizeUtils: ResizeUtilsService,
+    private store: Store
   ) {
-  }
-
-  ngOnInit() {
-    this.resizeTableService.elsRef$.subscribe((data) => {
-      this.addSizeTable(data.type, data.els, data.size)
-    })
   }
 
   resizeTable(event: MouseEvent, el: Element) {
@@ -61,21 +57,14 @@ export class ResizeTableDirective implements OnInit {
         this.id = this.id !== null ? this.id : ''
         if (this.type !== null) {
           const size = this.resizeUtils.getSize(this.type, this.startGrabbing, ev, this.coords)
-          this.resizeTableService.resizeTable(this.type, this.id, size)
-          if (this.type === 'col') {
-            this.renderer.setStyle(this.el, 'width', size + 'px')
-          }
+          this.store.dispatch(resizeTable({
+            resType: this.type,
+            data: {[this.id]: size}
+          }))
         }
         this.subMousemove()
         this.subMouseup()
       })
     }
-  }
-
-  addSizeTable(type: string, els: ElementRef[], size: number) {
-    const style = type === 'col' ? 'width' : 'height'
-    els.forEach(el => {
-      this.renderer.setStyle(el.nativeElement, style, size + 'px')
-    })
   }
 }
