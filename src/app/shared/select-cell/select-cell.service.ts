@@ -5,6 +5,7 @@ import {IBorder} from "../interface";
 import {Subject} from "rxjs";
 import {Store} from "@ngrx/store";
 import {textCell} from "../../store/actions/excel.actions";
+import {TableService} from "../services/table.service";
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,7 @@ export class SelectCellService {
     private selectUtilsService: SelectUtilsService,
     private allCellService: AllCellService,
     private store: Store,
+    private tableService: TableService
   ) {
   }
 
@@ -37,8 +39,10 @@ export class SelectCellService {
     this.clear()
     this.currentId = id
     this.currentText = this.currentCell.nativeElement.textContent
-    this.currentCell = this.allCellService.getCellById(id)
-
+    this.currentCell = this.allCellService.getCellById(id) ?
+      this.allCellService.getCellById(id)
+      : this.currentCell
+    this.tableService.selectedPos(this.currentCell.nativeElement.dataset)
     if (this.prevText.trim() !== this.currentText.trim()) {
       this.store.dispatch(textCell({
         data: {

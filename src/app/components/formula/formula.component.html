@@ -1,6 +1,14 @@
 <div class="formula">
-  <div class="formula__info">
-    A4
+  <div
+    #infoRef
+    (click)="selectedPos = ''"
+    (keydown)="onKeydown($event)"
+    (keyup)="onInfo()"
+    class="formula__info"
+    contenteditable="true"
+
+  >
+    {{ selectedPos }}
   </div>
 
   <div class="formula__ico">
@@ -10,8 +18,8 @@
   <div class="formula__input">
     <div
       #formulaRef
+      (input)="onInput()"
       (keydown)="onKeydown($event)"
-      (keyup)="onInput($event)"
       class="input" contenteditable="true"
     >
       {{ text }}
