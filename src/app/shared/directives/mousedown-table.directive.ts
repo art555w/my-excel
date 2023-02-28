@@ -41,7 +41,7 @@ export class MousedownTableDirective {
           this.selectCellService.selectGroup(this.lastId)
         }
       })
-      this.unSubMouseup = this.renderer.listen('document', 'mouseup', () => {
+      this.unSubMouseup = this.renderer.listen('document', 'mouseup', (event) => {
         this.unMousemove()
         if (this.isGrabbing) {
           this.isGrabbing = false

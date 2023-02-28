@@ -1,37 +1,63 @@
-import {Directive, ElementRef, OnInit, Renderer2} from '@angular/core';
+import {Directive, ElementRef, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {SelectCellService} from "./select-cell.service";
 import {AllCellService} from "../services/all-cell.service";
+import {FormulaService} from "../services/formula.service";
+import {TableService} from "../services/table.service";
+import {Subscription} from "rxjs";
 
 @Directive({
   selector: '[appSelectCell]'
 })
-export class SelectCellDirective implements OnInit {
+export class SelectCellDirective implements OnInit, OnDestroy {
 
   currentCell!: ElementRef
   groupCell: ElementRef[] = []
-  ids: string[] = []
+
+  subSelCell!: Subscription
+  subSelGroup!: Subscription
+  subCells!: Subscription
+  subForm!: Subscription
 
   constructor(
     private renderer: Renderer2,
     private selectCellService: SelectCellService,
-    private allCellService: AllCellService
+    private allCellService: AllCellService,
+    private formulaService: FormulaService,
+    private tableService: TableService,
   ) {
   }
 
   ngOnInit() {
-    this.selectCellService.selectCell$.subscribe((cell) => {
+    this.subSelCell = this.selectCellService.selectCell$.subscribe((cell) => {
       this.selectCell(cell)
     })
-    this.selectCellService.selectGroup$.subscribe((cells) => {
+    this.subSelGroup = this.selectCellService.selectGroup$.subscribe((cells) => {
       this.selectGroup(cells)
     })
+    this.subCells = this.allCellService.cellsGroup$.subscribe(el => {
+      this.selectCellService.currentCell = el[0]
+      this.selectCellService.lastId = el[0].nativeElement.id
+      this.selectCell(el[0])
+    })
+  }
+
+  ngOnDestroy() {
+    if (this.subSelCell) this.subSelCell.unsubscribe()
+    if (this.subForm) this.subForm.unsubscribe()
+    if (this.subCells) this.subCells.unsubscribe()
+    if (this.subSelGroup) this.subSelGroup.unsubscribe()
   }
 
   selectCell(cell: ElementRef): void {
     this.clear()
     this.currentCell = cell
     this.currentCell.nativeElement.focus()
+    this.subForm = this.formulaService.formulaInput$.subscribe((text) => {
+      this.currentCell.nativeElement.textContent = text
+    })
+    this.tableService.tableInput(this.currentCell.nativeElement.textContent)
     this.renderer.addClass(this.currentCell.nativeElement, 'selected')
+
   }
 
   selectGroup(cells: ElementRef[]): void {

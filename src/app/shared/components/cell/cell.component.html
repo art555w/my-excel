@@ -1,4 +1,5 @@
 <div
+  #cellRef
   [attr.data-col]="col"
   [attr.data-row]="numRow"
   [id]="id"
@@ -7,4 +8,6 @@
   class="cell"
   contenteditable="true"
   data-type="cell"
-></div>
+>
+  {{ text }}
+</div>

@@ -23,7 +23,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 import {AppEffects} from './store/effects/app.effects';
 import {CellComponent} from './shared/components/cell/cell.component';
-import { ColComponent } from './shared/components/col/col.component';
+import {ColComponent} from './shared/components/col/col.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ import { ColComponent } from './shared/components/col/col.component';
     MousedownTableDirective,
     KeydownTableDirective,
     CellComponent,
-    ColComponent
+    ColComponent,
   ],
   imports: [
     BrowserModule,

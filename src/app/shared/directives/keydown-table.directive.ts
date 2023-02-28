@@ -1,20 +1,26 @@
-import {Directive, HostListener} from '@angular/core';
+import {Directive, ElementRef, HostListener, OnInit, Renderer2} from '@angular/core';
 import {SelectCellService} from "../select-cell/select-cell.service";
 import {SelectUtilsService} from "../select-cell/select-utils.service";
+import {TableService} from "../services/table.service";
 
 @Directive({
   selector: '[appKeydownTable]'
 })
-export class KeydownTableDirective {
-
-
+export class KeydownTableDirective implements OnInit {
   nextId = ''
   lastId = ''
+  currentCell!: ElementRef
+  text = ''
 
   constructor(
     private selectCellService: SelectCellService,
-    private selectUtils: SelectUtilsService
+    private selectUtils: SelectUtilsService,
+    private renderer: Renderer2,
+    private tableService: TableService,
   ) {
+  }
+
+  ngOnInit() {
   }
 
   @HostListener('keydown', ['$event', '$event.target'])
@@ -23,16 +29,24 @@ export class KeydownTableDirective {
       const keys = ['ArrowDown', 'ArrowRight', 'ArrowLeft', 'ArrowUp', 'Tab', 'Enter']
       const {key} = event
       this.nextId = el.id
+      this.currentCell = this.selectCellService.currentCell
       if (keys.includes(key)) {
         if (!event.shiftKey) {
           event.preventDefault()
           this.nextId = this.selectUtils.nextCell(key, this.nextId)
           this.selectCellService.selectCell(this.nextId)
         } else {
+          event.preventDefault()
           this.lastId = this.selectCellService.lastId
           this.lastId = this.selectUtils.nextCell(key, this.lastId)
           this.selectCellService.selectGroup(this.lastId)
         }
+      } else {
+        const subKeyup = this.renderer.listen(this.currentCell.nativeElement, 'keyup', (event) => {
+          this.text = this.currentCell.nativeElement.textContent
+          this.tableService.tableInput(this.text)
+          subKeyup()
+        })
       }
     }
   }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentChecked, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {initState} from "./store/actions/excel.actions";
 
@@ -7,12 +7,16 @@ import {initState} from "./store/actions/excel.actions";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterContentChecked {
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private changeDetector: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     this.store.dispatch(initState())
+  }
+
+  ngAfterContentChecked() {
+    this.changeDetector.detectChanges()
   }
 }
