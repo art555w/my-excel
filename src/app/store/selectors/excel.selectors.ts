@@ -12,3 +12,9 @@ export const rowSelector = createSelector(
   state => state.rowState
 )
 
+export const textSelector = createSelector(
+  featureSelectors,
+  state => state.cellText
+)
+
+

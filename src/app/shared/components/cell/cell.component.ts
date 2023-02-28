@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {IDefaultStyle} from "../../interface";
 
@@ -18,8 +18,7 @@ export class CellComponent implements OnInit {
   col!: string
   id = ''
 
-  @ViewChildren('cell')
-  elRef!: QueryList<ElementRef>
+  text = ''
 
   constructor(private store: Store) {
   }

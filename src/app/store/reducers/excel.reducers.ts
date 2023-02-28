@@ -1,6 +1,6 @@
 import {createReducer, on} from "@ngrx/store";
 import {initialState} from "../state/excel.state";
-import {initState, resizeTable, updatedState} from "../actions/excel.actions";
+import {initState, resizeTable, textCell, updatedState} from "../actions/excel.actions";
 
 let saveState
 export const excelReducers = createReducer(
@@ -19,6 +19,13 @@ export const excelReducers = createReducer(
     return {
       ...state,
       [type]: {...saveState}
+    }
+  }),
+  on(textCell, (state, action) => {
+    saveState = {...state.cellText, ...action.data}
+    return {
+      ...state,
+      cellText: {...saveState}
     }
   }),
   on(initState, (state) => ({...state}))

@@ -8,8 +8,13 @@
   </div>
 
   <div class="formula__input">
-    <div (mousedown)="onMousedown($event)" class="input" contenteditable="true">
-
+    <div
+      #formulaRef
+      (keydown)="onKeydown($event)"
+      (keyup)="onInput($event)"
+      class="input" contenteditable="true"
+    >
+      {{ text }}
     </div>
   </div>
 </div>

@@ -21,14 +21,6 @@ export class AllCellService {
     return this.cells
   }
 
-  getCols(id: string): ElementRef[] {
-    return this.cells.filter(cell => cell.nativeElement.dataset.col === id)
-  }
-
-  getRows(id: string): ElementRef[] {
-    return this.cells.filter(cell => cell.nativeElement.dataset.row === id)
-  }
-
   getCellById(id: string): ElementRef {
     return this.cells.filter((cell) => cell.nativeElement.id === id)[0]
   }
