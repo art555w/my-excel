@@ -17,6 +17,7 @@ export class SelectCellDirective implements OnInit, OnDestroy {
   subSelGroup!: Subscription
   subCells!: Subscription
   subForm!: Subscription
+  els: ElementRef[] = []
 
   constructor(
     private renderer: Renderer2,
@@ -38,6 +39,9 @@ export class SelectCellDirective implements OnInit, OnDestroy {
       this.selectCellService.currentCell = el[0]
       this.selectCellService.lastId = el[0].nativeElement.id
       this.selectCell(el[0])
+      if (el[0]) {
+        this.subCells.unsubscribe()
+      }
     })
   }
 
@@ -51,6 +55,7 @@ export class SelectCellDirective implements OnInit, OnDestroy {
   selectCell(cell: ElementRef): void {
     this.clear()
     this.currentCell = cell
+    this.selectionParent(this.currentCell)
     this.currentCell.nativeElement.focus()
     this.subForm = this.formulaService.formulaInput$.subscribe((text) => {
       this.currentCell.nativeElement.textContent = text
@@ -69,6 +74,17 @@ export class SelectCellDirective implements OnInit, OnDestroy {
       this.renderer.addClass(cell.nativeElement, 'selected-group')
     })
     this.addBorder()
+  }
+
+  selectionParent(el: ElementRef) {
+    if (this.els.length) {
+      this.els.forEach(el => this.renderer.removeClass(el, 'bg-sel'))
+      this.els = []
+    }
+    const col = this.renderer.selectRootElement(`[id="${el.nativeElement.dataset.col}"]`, true)
+    const row = this.renderer.selectRootElement(`[id="${el.nativeElement.dataset.row}"]`, true)
+    this.els.push(col, row)
+    this.els.forEach(el => this.renderer.addClass(el, 'bg-sel'))
   }
 
   addBorder(): void {

@@ -29,7 +29,7 @@
     class="row"
   >
 
-    <div (mousedown)="$event.preventDefault()" class="row-info">
+    <div (mousedown)="$event.preventDefault()" [id]="numRow + 1" class="row-info">
       {{ numRow + 1 }}
       <div [attr.data-resize]="numRow + 1" appResizeRow class="row-resize" data-type="row"></div>
     </div>
