@@ -1,4 +1,5 @@
 import {createAction, props} from "@ngrx/store";
+import {IStoreData} from "../../shared/interface";
 
 export const resizeTable = createAction(
   '[Excel State] Resize Table',
@@ -14,5 +15,9 @@ export const textCell = createAction(
 )
 export const initState = createAction(
   '[Excel State] Init State',
+)
+export const styleState = createAction(
+  '[Excel State] Apply Style',
+  props<{ data: IStoreData }>()
 )
 

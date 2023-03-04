@@ -1,6 +1,6 @@
 import {createReducer, on} from "@ngrx/store";
 import {initialState} from "../state/excel.state";
-import {initState, resizeTable, textCell, updatedState} from "../actions/excel.actions";
+import {initState, resizeTable, styleState, textCell, updatedState} from "../actions/excel.actions";
 
 let saveState
 export const excelReducers = createReducer(
@@ -28,5 +28,19 @@ export const excelReducers = createReducer(
       cellText: {...saveState}
     }
   }),
-  on(initState, (state) => ({...state}))
+  on(initState, (state) => ({...state})),
+  on(styleState, (state, action) => {
+    let style = {}
+    saveState = {...state.applyStyle, ...action.data}
+    Object.keys(state.applyStyle).forEach((key: string) => {
+      if (action.data[key]) {
+        const prev = {...state.applyStyle[key], ...action.data[key]}
+        style = {...state.applyStyle, [key]: prev}
+      }
+    })
+    return {
+      ...state,
+      applyStyle: {...saveState, ...style}
+    }
+  })
 )

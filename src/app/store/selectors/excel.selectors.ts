@@ -17,4 +17,9 @@ export const textSelector = createSelector(
   state => state.cellText
 )
 
+export const stylesSelector = createSelector(
+  featureSelectors,
+  state => state.applyStyle
+)
+
 

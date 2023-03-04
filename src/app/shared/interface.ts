@@ -39,11 +39,21 @@ export interface IResizeTable {
   type: string
 }
 
-export interface IDefaultStyle {
-  width: string,
-  height: string
-}
-
 export interface IStoreData {
   [key: string]: any
+}
+
+export interface IDefaultStyle {
+  width?: string,
+  height?: string,
+  'font-weight'?: string,
+  'font-style'?: string,
+  'text-decoration'?: string,
+  'text-align'?: string
+}
+
+export interface IIcons {
+  name: string
+  active: boolean,
+  style: {}
 }

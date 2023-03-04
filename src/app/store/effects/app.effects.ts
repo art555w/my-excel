@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {initState, resizeTable, textCell, updatedState} from "../actions/excel.actions";
+import {initState, resizeTable, styleState, textCell, updatedState} from "../actions/excel.actions";
 import {map} from "rxjs";
 import {Store} from "@ngrx/store";
 import {StoreService} from "../store.service";
@@ -8,7 +8,7 @@ import {StoreService} from "../store.service";
 @Injectable()
 export class AppEffects {
   updateState$ = createEffect(() => this.actions$.pipe(
-    ofType(resizeTable, textCell),
+    ofType(resizeTable, textCell, styleState),
     map(() => {
       this.storeService.updateState()
       return updatedState({update: true})

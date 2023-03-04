@@ -27,7 +27,11 @@ export class CellComponent implements OnInit {
     this.id = `${this.numCol}:${this.numRow}`
     this.styles = {
       height: '24px',
-      width: '120px'
+      width: '120px',
+      'font-style': 'normal',
+      'font-weight': 'normal',
+      'text-align': 'left',
+      'text-decoration': 'none'
     }
   }
 
