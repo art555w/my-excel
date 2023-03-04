@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Store} from "@ngrx/store";
 
 @Component({
   selector: 'app-table-page',
@@ -8,7 +7,7 @@ import {Store} from "@ngrx/store";
 })
 export class TablePageComponent implements OnInit {
 
-  constructor(private store: Store) {
+  constructor() {
   }
 
   ngOnInit() {

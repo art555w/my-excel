@@ -1,7 +1,7 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {TableTemplateService} from "../../shared/services/table-template.service";
 import {Store} from "@ngrx/store";
-import {colSelector, rowSelector, textSelector} from "../../store/selectors/excel.selectors";
+import {colSelector, rowSelector, stylesSelector, textSelector} from "../../store/selectors/excel.selectors";
 import {CellComponent} from "../../shared/components/cell/cell.component";
 import {IStoreData} from "../../shared/interface";
 import {ColComponent} from "../../shared/components/col/col.component";
@@ -24,16 +24,17 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   colSelector$ = this.store.select(colSelector)
   rowSelector$ = this.store.select(rowSelector)
   textSelector$ = this.store.select(textSelector)
+  styleSelector$ = this.store.select(stylesSelector)
 
   subCol!: Subscription
   subRow!: Subscription
+  subStyle!: Subscription
 
 
   constructor(
     private tableTemplateService: TableTemplateService,
     private store: Store,
-    private sel: SelectCellService,
-    private changeDetector: ChangeDetectorRef,
+    private selectCellService: SelectCellService,
     private tableService: TableService
   ) {
   }
@@ -65,14 +66,22 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     })
     this.textSelector$.subscribe((data: IStoreData) => {
       this.cellsRef.forEach(el => {
-        if (data[el.id]) {
-          el.text = data[el.id]
-        }
-        if (data['1:1']) {
-          this.tableService.tableInput(data['1:1'])
-        }
+        if (data[el.id]) el.text = data[el.id]
+        if (data['1:1']) this.tableService.tableInput(data['1:1'])
       })
     }).unsubscribe()
+    this.subStyle = this.styleSelector$.subscribe((data) => {
+      this.cellsRef.forEach(el => {
+        if (data[el.id]) {
+          el.styles = {...el.styles, ...data[el.id]}
+        }
+      })
+    })
+    this.cellsRef.forEach(el => {
+      if (el.id === '1:1') {
+        this.tableService.applyStyle(el.styles)
+      }
+    })
   }
 
   ngOnDestroy() {
@@ -82,6 +91,17 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.subRow) {
       this.subRow.unsubscribe()
     }
+    if (this.subStyle) {
+    }
+    this.subStyle.unsubscribe()
   }
 
+  onEvent(event: MouseEvent | KeyboardEvent) {
+    if (!event.shiftKey) {
+      const id = this.selectCellService.currentId
+      this.cellsRef.forEach(cell => {
+        if (cell.id === id) this.tableService.applyStyle(cell.styles)
+      })
+    }
+  }
 }

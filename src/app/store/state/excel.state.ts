@@ -1,13 +1,17 @@
+import {IStoreData} from "../../shared/interface";
+
 export interface IInitialState {
-  colState: {},
-  rowState: {},
+  colState: IStoreData,
+  rowState: IStoreData,
   updated: boolean,
-  cellText: {}
+  cellText: IStoreData,
+  applyStyle: IStoreData
 }
 
 export const initialState: IInitialState = {
   colState: {},
   rowState: {},
   cellText: {},
+  applyStyle: {},
   updated: false
 }

@@ -6,6 +6,7 @@ import {Subject} from "rxjs";
 import {Store} from "@ngrx/store";
 import {textCell} from "../../store/actions/excel.actions";
 import {TableService} from "../services/table.service";
+import {ToolbarService} from "../services/toolbar.service";
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,8 @@ export class SelectCellService {
     private selectUtilsService: SelectUtilsService,
     private allCellService: AllCellService,
     private store: Store,
-    private tableService: TableService
+    private tableService: TableService,
+    private tool: ToolbarService
   ) {
   }
 
@@ -38,6 +40,7 @@ export class SelectCellService {
     }
     this.clear()
     this.currentId = id
+    this.groupId.push(id)
     this.currentText = this.currentCell.nativeElement.textContent
     this.currentCell = this.allCellService.getCellById(id) ?
       this.allCellService.getCellById(id)
@@ -80,6 +83,7 @@ export class SelectCellService {
   }
 
   clear() {
+    this.groupId = []
     this.groupCells = []
   }
 }
