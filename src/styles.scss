@@ -91,6 +91,23 @@ h1, h2, h3, h4, h5, h6 {
 
 /*--------------------*/
 
+.header__input {
+  min-width: 50px;
+  margin: 3px;
+  padding: 3px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  font-size: 18px;
+  color: #000;
+
+  &:hover {
+    border: 1px solid #ccc;
+  }
+
+  &:focus {
+    outline: 2px solid blue;
+  }
+}
 
 .icon__box {
   height: 24px;

@@ -24,6 +24,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {AppEffects} from './store/effects/app.effects';
 import {CellComponent} from './shared/components/cell/cell.component';
 import {ColComponent} from './shared/components/col/col.component';
+import { GetTitleDirective } from './shared/directives/get-title.directive';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {ColComponent} from './shared/components/col/col.component';
     KeydownTableDirective,
     CellComponent,
     ColComponent,
+    GetTitleDirective,
   ],
   imports: [
     BrowserModule,

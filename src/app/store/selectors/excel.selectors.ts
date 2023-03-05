@@ -21,5 +21,9 @@ export const stylesSelector = createSelector(
   featureSelectors,
   state => state.applyStyle
 )
+export const titleSelector = createSelector(
+  featureSelectors,
+  state => state.title
+)
 
 
