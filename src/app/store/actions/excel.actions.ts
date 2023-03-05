@@ -20,4 +20,8 @@ export const styleState = createAction(
   '[Excel State] Apply Style',
   props<{ data: IStoreData }>()
 )
+export const titleState = createAction(
+  '[Excel State] Title State',
+  props<{ text: string }>()
+)
 
