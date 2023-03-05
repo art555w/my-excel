@@ -18,14 +18,16 @@ export const excelReducers = createReducer(
     saveState = {...state[type], ...action.data}
     return {
       ...state,
-      [type]: {...saveState}
+      [type]: {...saveState},
+      updated: false
     }
   }),
   on(textCell, (state, action) => {
     saveState = {...state.cellText, ...action.data}
     return {
       ...state,
-      cellText: {...saveState}
+      cellText: {...saveState},
+      updated: false
     }
   }),
   on(initState, (state) => ({...state})),
@@ -40,13 +42,15 @@ export const excelReducers = createReducer(
     })
     return {
       ...state,
-      applyStyle: {...saveState, ...style}
+      applyStyle: {...saveState, ...style},
+      updated: false
     }
   }),
   on(titleState, (state, action) => {
     return {
       ...state,
-      title: action.text
+      title: action.text,
+      updated: false
     }
   })
 )

@@ -26,4 +26,9 @@ export const titleSelector = createSelector(
   state => state.title
 )
 
+export const updateSelector = createSelector(
+  featureSelectors,
+  state => state.updated
+)
+
 
