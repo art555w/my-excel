@@ -289,6 +289,40 @@ h1, h2, h3, h4, h5, h6 {
   background-color: rgb(165 172 173 / 41%);
 }
 
+.btn {
+  background-color: #ccc;
+  padding: 5px 10px;
+  font-size: 18px;
+  border-radius: 5px;
+  color: #000;
+
+  &:disabled {
+    background: #ccc;
+    color: #000;
+    cursor: not-allowed;
+  }
+}
+
+.btn-primary {
+  background-color: #48a04e;
+  color: rgba(0, 0, 0, 0.84);
+}
+
+.btn-danger {
+  background-color: rgb(255 4 4 / 80%);
+  color: rgba(0, 0, 0, 0.84);
+}
+
+.alert {
+  background-color: rgba(255, 255, 255, 0.38);
+  padding: 10px;
+  text-align: center;
+}
+
+.alert__danger {
+  color: #ff0505;
+}
+
 
 
 

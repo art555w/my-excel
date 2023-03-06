@@ -57,3 +57,14 @@ export interface IIcons {
   active: boolean,
   style: {}
 }
+
+export interface IUser {
+  email: string,
+  password: string,
+  returnSecureToken?: boolean
+}
+
+export interface IFbResponse {
+  expiresIn: string,
+  idToken: string
+}
