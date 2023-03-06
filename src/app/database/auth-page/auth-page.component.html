@@ -1,0 +1,28 @@
+<div (ngSubmit)="submit()" [formGroup]="form" class="auth">
+  <form>
+    <div class="exit">
+      <mat-icon (click)="close.emit()">close</mat-icon>
+    </div>
+
+    <div *ngIf="authService.error$ | async as error" class="alert alert__danger">
+      <p>{{ error }}</p>
+    </div>
+
+    <div class="form__control">
+      <label for="email">Email:</label>
+      <input formControlName="email" id="email" type="email">
+    </div>
+    <div class="form__control">
+      <label for="password">Password:</label>
+      <input formControlName="password" id="password" type="password">
+    </div>
+
+    <button
+      [disabled]="submitted || form.invalid"
+      class="btn btn-primary"
+      type="submit"
+    >
+      Войти
+    </button>
+  </form>
+</div>

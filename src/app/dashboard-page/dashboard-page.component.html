@@ -1,9 +1,28 @@
+<app-auth-page (close)="auth = false" *ngIf="auth"></app-auth-page>
+
 <div class="container">
   <header class="header">
     <a class="header__logo" routerLink="/dashboard">
       <img alt="" src="./assets/logo.png">
       <h1>Таблица</h1>
     </a>
+
+    <div class="header__btn">
+      <button
+        (click)="auth = true"
+        *ngIf="!authService.isAuthenticated()"
+        class="btn btn-primary"
+      >Войти
+      </button>
+      <button
+        (click)="authService.logout()"
+        *ngIf="authService.isAuthenticated()"
+        class="btn btn-danger"
+        href="#"
+      >Выйти
+      </button>
+    </div>
+
   </header>
 
 </div>

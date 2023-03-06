@@ -2,6 +2,10 @@ import {isDevMode, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {MatIconModule} from "@angular/material/icon";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {EffectsModule} from '@ngrx/effects';
+import {AppEffects} from './store/effects/app.effects';
+import {StoreModule} from '@ngrx/store';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -17,14 +21,12 @@ import {ResizeTableDirective} from './shared/resize-table/resize-table.directive
 import {SelectCellDirective} from './shared/select-cell/select-cell.directive';
 import {MousedownTableDirective} from './shared/directives/mousedown-table.directive';
 import {KeydownTableDirective} from './shared/directives/keydown-table.directive';
-import {StoreModule} from '@ngrx/store';
 import {metaReducers, reducers} from './store/reducers';
-import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-import {EffectsModule} from '@ngrx/effects';
-import {AppEffects} from './store/effects/app.effects';
 import {CellComponent} from './shared/components/cell/cell.component';
 import {ColComponent} from './shared/components/col/col.component';
-import { GetTitleDirective } from './shared/directives/get-title.directive';
+import {GetTitleDirective} from './shared/directives/get-title.directive';
+import {DatabaseModule} from "./database/database.module";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { GetTitleDirective } from './shared/directives/get-title.directive';
       metaReducers
     }),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
-    EffectsModule.forRoot([AppEffects])
+    EffectsModule.forRoot([AppEffects]),
+    DatabaseModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
