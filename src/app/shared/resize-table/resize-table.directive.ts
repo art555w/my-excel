@@ -58,7 +58,7 @@ export class ResizeTableDirective {
         if (this.type !== null) {
           const size = this.resizeUtils.getSize(this.type, this.startGrabbing, ev, this.coords)
           this.store.dispatch(resizeTable({
-            resType: this.type,
+            changeType: this.type,
             data: {[this.id]: size}
           }))
         }

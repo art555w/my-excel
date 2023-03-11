@@ -64,7 +64,12 @@ export interface IUser {
   returnSecureToken?: boolean
 }
 
-export interface IFbResponse {
+export interface IFbAuthResponse {
   expiresIn: string,
-  idToken: string
+  idToken: string,
+  localId: string
+}
+
+export interface IFbCreateResponse {
+  name: string
 }

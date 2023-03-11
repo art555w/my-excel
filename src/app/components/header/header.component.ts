@@ -1,20 +1,28 @@
-import {Component, OnInit} from '@angular/core';
-import {Store} from "@ngrx/store";
-import {updateSelector} from "../../store/selectors/excel.selectors";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {StoreService} from "../../store/store.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
+  id = ''
+  subUpdate!: Subscription
 
-  updateSelector$ = this.store.select(updateSelector)
-
-  constructor(private store: Store) {
+  constructor(public storeService: StoreService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.subUpdate = this.storeService.updateState().subscribe((response) => {
+      this.storeService.update = false
+    })
+
+  }
+
+  ngOnDestroy() {
   }
 
 }

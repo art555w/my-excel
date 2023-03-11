@@ -6,7 +6,7 @@ import {CellComponent} from "../../shared/components/cell/cell.component";
 import {IStoreData} from "../../shared/interface";
 import {ColComponent} from "../../shared/components/col/col.component";
 import {SelectCellService} from "../../shared/select-cell/select-cell.service";
-import {Subscription} from "rxjs";
+import {skip, Subscription} from "rxjs";
 import {TableService} from "../../shared/services/table.service";
 
 @Component({
@@ -29,6 +29,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   subCol!: Subscription
   subRow!: Subscription
   subStyle!: Subscription
+  subText!: Subscription
 
 
   constructor(
@@ -64,13 +65,17 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       })
     })
-    this.textSelector$.subscribe((data: IStoreData) => {
-      this.cellsRef.forEach(el => {
-        if (data[el.id]) el.text = data[el.id]
-        if (data['1:1']) this.tableService.tableInput(data['1:1'])
+    this.subText = this.textSelector$.pipe(skip(1))
+      .subscribe((data: IStoreData) => {
+        this.cellsRef.forEach(el => {
+          if (data[el.id]) el.text = data[el.id]
+          if (data['1:1']) this.tableService.tableInput(data['1:1'])
+        })
       })
-    }).unsubscribe()
-    this.subStyle = this.styleSelector$.subscribe((data) => {
+    this.subStyle = this.styleSelector$.pipe(skip(1)).subscribe((data) => {
+      if (data['1:1']) {
+        this.tableService.applyStyle(data['1:1'])
+      }
       this.cellsRef.forEach(el => {
         if (data[el.id]) {
           el.styles = {...el.styles, ...data[el.id]}
@@ -92,8 +97,12 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       this.subRow.unsubscribe()
     }
     if (this.subStyle) {
+      this.subStyle.unsubscribe()
     }
-    this.subStyle.unsubscribe()
+    if (this.subText) {
+      this.subText.unsubscribe()
+    }
+
   }
 
   onEvent(event: MouseEvent | KeyboardEvent) {

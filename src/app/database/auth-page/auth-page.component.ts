@@ -37,7 +37,6 @@ export class AuthPageComponent implements OnInit {
       next: () => {
         this.submitted = false
         this.close.emit()
-
       },
       error: () => {
         this.submitted = false

@@ -1,6 +1,5 @@
 import {AfterContentChecked, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {initState} from "./store/actions/excel.actions";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +12,6 @@ export class AppComponent implements OnInit, AfterContentChecked {
   }
 
   ngOnInit() {
-    this.store.dispatch(initState())
   }
 
   ngAfterContentChecked() {

@@ -6,7 +6,7 @@ import {DashboardPageComponent} from "./dashboard-page/dashboard-page.component"
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
   {path: 'dashboard', component: DashboardPageComponent},
-  {path: 'table', component: TablePageComponent},
+  {path: 'table/:id', component: TablePageComponent},
 ];
 
 @NgModule({
