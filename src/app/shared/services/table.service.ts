@@ -27,7 +27,6 @@ export class TableService {
 
   applyStyle(style: IDefaultStyle) {
     this.styles = {...this.styles, ...style}
-
     this.toolbarService.setIcons(this.styles)
   }
 }

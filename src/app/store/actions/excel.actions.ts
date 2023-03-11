@@ -3,11 +3,11 @@ import {IStoreData} from "../../shared/interface";
 
 export const resizeTable = createAction(
   '[Excel State] Resize Table',
-  props<{ data: {}, resType: string }>()
+  props<{ data: {}, changeType: string }>()
 )
 export const updatedState = createAction(
   '[Excel State] Update State',
-  props<{ update: boolean, initState?: {} }>()
+  props<{ update: boolean }>()
 )
 export const textCell = createAction(
   '[Excel state] Update Text Cells',
@@ -15,6 +15,7 @@ export const textCell = createAction(
 )
 export const initState = createAction(
   '[Excel State] Init State',
+  props<{ state: {} }>()
 )
 export const styleState = createAction(
   '[Excel State] Apply Style',

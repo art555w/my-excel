@@ -10,6 +10,11 @@
     ></div>
   </div>
   <div class="icon__box">
-    <mat-icon>cloud_done</mat-icon>
+    <mat-icon *ngIf="!storeService.update">cloud_done</mat-icon>
+    <div *ngIf="storeService.update">
+      <mat-icon>cached</mat-icon>
+      <span>Сохранение...</span>
+    </div>
+
   </div>
 </div>

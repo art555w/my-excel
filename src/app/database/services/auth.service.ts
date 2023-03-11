@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {catchError, Observable, Subject, tap, throwError} from "rxjs";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {IFbResponse, IUser} from "../../shared/interface";
+import {IFbAuthResponse, IUser} from "../../shared/interface";
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class AuthService {
 
   login(user: IUser): Observable<any> {
     user.returnSecureToken = true
-    return this.http.post<IFbResponse>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, user)
+    return this.http.post<IFbAuthResponse>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, user)
       .pipe(
         tap(this.setToken),
         catchError(this.handleError.bind(this))
@@ -53,11 +53,13 @@ export class AuthService {
     return !!this.token
   }
 
-  setToken(response: IFbResponse | null) {
+  setToken(response: IFbAuthResponse | null) {
+    console.log(response)
     if (response) {
       const expDate = new Date(new Date().getTime() + +response.expiresIn * 1000).toString()
       localStorage.setItem('fb-token', response.idToken)
       localStorage.setItem('fb-expDate', expDate)
+      localStorage.setItem('fb-localId', response.localId)
     } else {
       localStorage.clear()
     }

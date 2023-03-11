@@ -6,15 +6,13 @@ let saveState
 export const excelReducers = createReducer(
   initialState,
   on(updatedState, (state, action) => {
-    const newState = action.initState || {}
     return {
       ...state,
-      ...newState,
       updated: action.update,
     }
   }),
   on(resizeTable, (state, action) => {
-    const type = action.resType === 'col' ? 'colState' : 'rowState'
+    const type = action.changeType === 'col' ? 'colState' : 'rowState'
     saveState = {...state[type], ...action.data}
     return {
       ...state,
@@ -30,7 +28,13 @@ export const excelReducers = createReducer(
       updated: false
     }
   }),
-  on(initState, (state) => ({...state})),
+  on(initState, (state, action) => {
+    return {
+      ...state,
+      ...action.state,
+      date: new Date()
+    }
+  }),
   on(styleState, (state, action) => {
     let style = {}
     saveState = {...state.applyStyle, ...action.data}
@@ -52,5 +56,5 @@ export const excelReducers = createReducer(
       title: action.text,
       updated: false
     }
-  })
+  }),
 )

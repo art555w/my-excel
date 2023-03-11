@@ -27,6 +27,8 @@ import {ColComponent} from './shared/components/col/col.component';
 import {GetTitleDirective} from './shared/directives/get-title.directive';
 import {DatabaseModule} from "./database/database.module";
 import {FormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import {FormsModule} from "@angular/forms";
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
     EffectsModule.forRoot([AppEffects]),
     DatabaseModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
