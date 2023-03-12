@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../services/auth.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {IUser} from "../../shared/interface";
@@ -9,8 +9,6 @@ import {IUser} from "../../shared/interface";
   styleUrls: ['./auth-page.component.scss']
 })
 export class AuthPageComponent implements OnInit {
-  @Output()
-  close = new EventEmitter<void>()
   form!: FormGroup
   submitted = false
 
@@ -36,7 +34,6 @@ export class AuthPageComponent implements OnInit {
     this.authService.login(user).subscribe({
       next: () => {
         this.submitted = false
-        this.close.emit()
       },
       error: () => {
         this.submitted = false

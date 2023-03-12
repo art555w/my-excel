@@ -1,9 +1,5 @@
 <div (ngSubmit)="submit()" [formGroup]="form" class="auth">
   <form>
-    <div class="exit">
-      <mat-icon (click)="close.emit()">close</mat-icon>
-    </div>
-
     <div *ngIf="authService.error$ | async as error" class="alert alert__danger">
       <p>{{ error }}</p>
     </div>

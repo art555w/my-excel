@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from "../database/services/auth.service";
-import {StoreService} from "../store/store.service";
+import {StoreService} from "../database/services/store.service";
 import {IInitialState, initialState} from "../store/state/excel.state";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
@@ -13,23 +13,26 @@ import {initState} from "../store/actions/excel.actions";
   styleUrls: ['./dashboard-page.component.scss']
 })
 export class DashboardPageComponent implements OnInit, OnDestroy {
-  auth = false
-  user = ''
   subCreate!: Subscription
+  subUpdate!: Subscription
+
+  tables: IInitialState[] = []
 
   constructor(
     public authService: AuthService,
-    private storeService: StoreService,
+    public storeService: StoreService,
     private router: Router,
     private store: Store
   ) {
   }
 
   ngOnInit() {
-    this.storeService.updateState().subscribe(state => {
-      if (state.id) {
-        this.router.navigate([`/table/${state['id']}`])
-      }
+    this.subUpdate = this.storeService.updateState().subscribe((state) => {
+      console.log(state)
+      this.router.navigate(['/table', state.id])
+    })
+    this.storeService.getAll().subscribe(tables => {
+      this.tables = tables
     })
   }
 
@@ -37,18 +40,27 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     if (this.subCreate) {
       this.subCreate.unsubscribe()
     }
+    if (this.subUpdate) {
+      this.subUpdate.unsubscribe()
+    }
   }
 
   create(event: MouseEvent) {
-    if (!this.authService.isAuthenticated()) {
-      this.auth = true
-    }
-    this.user = localStorage.getItem('fb-localId') || ''
+    this.storeService.loading = true
     const state: IInitialState = initialState
-    if (this.user) {
-      this.subCreate = this.storeService.createState(this.user, state).subscribe((state) => {
-        this.store.dispatch(initState({state}))
-      })
-    }
+    this.subCreate = this.storeService.createState(state).subscribe((state) => {
+      this.store.dispatch(initState({state}))
+      this.storeService.loading = true
+    })
+  }
+
+  onClick(id: string) {
+    this.router.navigate(['/table', id])
+  }
+
+  remove(id: string) {
+    this.storeService.remove(id).subscribe(() => {
+      this.tables = this.tables.filter(table => table.id !== id)
+    })
   }
 }

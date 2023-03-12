@@ -1,5 +1,5 @@
 <div class="header">
-  <div class="header__logo">
+  <div class="header__logo" routerLink="/dashboard">
     <img alt="#" src="./assets/logo.png">
   </div>
   <div class="header__form" data-type="title">
@@ -9,7 +9,7 @@
       contenteditable="true"
     ></div>
   </div>
-  <div class="icon__box">
+  <div *ngIf="!storeService.loading" class="icon__box">
     <mat-icon *ngIf="!storeService.update">cloud_done</mat-icon>
     <div *ngIf="storeService.update">
       <mat-icon>cached</mat-icon>

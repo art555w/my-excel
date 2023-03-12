@@ -2,7 +2,7 @@
   <app-header></app-header>
   <app-toolbar></app-toolbar>
   <app-formula></app-formula>
-  <app-table></app-table>
+  <app-table *ngIf="!storeService.loading"></app-table>
 </div>
 <div *ngIf="storeService.loading" class="loading">
   <mat-spinner></mat-spinner>

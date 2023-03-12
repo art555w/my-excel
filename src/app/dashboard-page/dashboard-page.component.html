@@ -1,4 +1,4 @@
-<app-auth-page (close)="auth = false" *ngIf="auth"></app-auth-page>
+<app-auth-page *ngIf="!authService.isAuthenticated()"></app-auth-page>
 
 <div class="container">
   <header class="header">
@@ -9,7 +9,6 @@
 
     <div class="header__btn">
       <button
-        (click)="auth = true"
         *ngIf="!authService.isAuthenticated()"
         class="btn btn-primary"
       >Войти
@@ -51,14 +50,31 @@
         <span>Название</span>
         <span>Дата</span>
       </div>
-      <ul class="list__item ">
-        <li>
-          <span>Название</span>
+      <ul *ngIf="tables; else info" class="list__item ">
+        <li *ngFor="let table of tables">
+          <a (click)="onClick(table.id)">
+            <span>{{ table.title }}</span>
+            <span>{{ table.date | date:'MMMM d, y' }}</span>
+          </a>
+          <button (click)="remove(table.id)" class="btn-remove">
+            <mat-icon>delete</mat-icon>
+          </button>
         </li>
         <li>
-          <span>Дата</span>
+
         </li>
       </ul>
+      <ng-template #info>
+        <div class="text-center">
+          <small>У вас пока нет таблиц</small>
+        </div>
+
+      </ng-template>
     </div>
   </div>
+  <div *ngIf="storeService.loading" class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
 </div>
+
+

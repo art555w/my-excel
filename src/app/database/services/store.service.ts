@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {IInitialState} from "./state/excel.state";
+import {IInitialState} from "../../store/state/excel.state";
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
+import {environment} from "../../../environments/environment";
 import {map, Observable, skip, switchMap} from "rxjs";
-import {IFbCreateResponse, IStoreData} from "../shared/interface";
+import {IFbCreateResponse, IStoreData} from "../../shared/interface";
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,24 @@ export class StoreService {
     return this.http.get<IInitialState>(`${environment.fbDbUrl}/store/${this.user}/${id}.json`)
   }
 
+  getAll(): Observable<IInitialState[]> {
+    this.user = localStorage.getItem('fb-localId') || ''
+    return this.http.get<IInitialState[]>(`${environment.fbDbUrl}/store/${this.user}.json`).pipe(
+      map((res: { [key: string]: any }) => {
+        if (res) {
+          return Object.keys(res).map(key => {
+            return res[key]
+          })
+        }
+        return res
+      })
+    )
+  }
+
+  remove(id: string): Observable<any> {
+    return this.http.delete(`${environment.fbDbUrl}/store/${this.user}/${id}.json`)
+  }
+
   updateState(): Observable<any> {
     this.user = localStorage.getItem('fb-localId') || ''
     return this.store.pipe(
@@ -40,8 +58,9 @@ export class StoreService {
     )
   }
 
-  createState(user: string, state: IInitialState): Observable<IInitialState> {
-    return this.http.post<IFbCreateResponse>(`${environment.fbDbUrl}/store/${user}.json`, state).pipe(
+  createState(state: IInitialState): Observable<IInitialState> {
+    this.user = localStorage.getItem('fb-localId') || ''
+    return this.http.post<IFbCreateResponse>(`${environment.fbDbUrl}/store/${this.user}.json`, state).pipe(
       map((response) => {
         this.id = response.name
         const newState = {

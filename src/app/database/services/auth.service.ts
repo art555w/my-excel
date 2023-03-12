@@ -54,7 +54,6 @@ export class AuthService {
   }
 
   setToken(response: IFbAuthResponse | null) {
-    console.log(response)
     if (response) {
       const expDate = new Date(new Date().getTime() + +response.expiresIn * 1000).toString()
       localStorage.setItem('fb-token', response.idToken)

@@ -76,13 +76,49 @@
 }
 
 .list__item {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 60px;
-  border-radius: 25px;
-  cursor: pointer;
 
-  &:hover {
-    background-color: rgba(94, 148, 89, 0.49);
+  li {
+    border-radius: 25px;
+    margin-bottom: 10px;
+    position: relative;
+
+    .btn-remove {
+      position: absolute;
+      right: 0px;
+      top: 6px;
+      opacity: 0;
+      background-color: transparent;
+      transition: all ease 0.3s;
+    }
+
+    &:hover {
+      background-color: rgba(94, 148, 89, 0.49);
+
+      .btn-remove {
+        right: 12px;
+        opacity: 1;
+      }
+    }
   }
+
+  mat-icon {
+    &:hover {
+      color: rgb(229, 0, 0);
+    }
+  }
+
+  a {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 60px;
+
+    cursor: pointer;
+    color: #000;
+  }
+
+
+  mat-icon {
+    color: #980000;
+  }
+
 }
