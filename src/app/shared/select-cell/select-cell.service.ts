@@ -61,18 +61,6 @@ export class SelectCellService {
 
   selectGroup(lastId: string): void {
     this.clear()
-    this.lastId = lastId
-    this.currentText = this.currentCell.nativeElement.textContent
-
-    if (this.prevText.trim() !== this.currentText.trim()) {
-      this.store.dispatch(textCell({
-        data: {
-          [this.currentId]: this.currentText.trim()
-        }
-      }))
-    }
-    this.prevText = this.currentText
-    this.currentText = this.allCellService.getCellById(lastId).nativeElement.textContent
     this.groupId = this.selectUtilsService.getAllIdSelectedCells(this.currentId, lastId)
     this.groupCells = this.allCellService.getGroupCells(this.groupId)
     this.selectGroup$.next(this.groupCells)

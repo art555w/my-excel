@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {IDefaultStyle} from "../../interface";
+import {IDefaultStyle, IStoreData} from "../../interface";
+import {textSelector} from "../../../store/selectors/excel.selectors";
 
 @Component({
   selector: 'app-cell',
@@ -19,6 +20,7 @@ export class CellComponent implements OnInit {
   id = ''
 
   text = ''
+  textSelector$ = this.store.select(textSelector)
 
   constructor(private store: Store) {
   }
@@ -33,6 +35,13 @@ export class CellComponent implements OnInit {
       'text-align': 'left',
       'text-decoration': 'none'
     }
+
+    this.textSelector$
+      .subscribe((data: IStoreData) => {
+        if (data[this.id]) {
+          this.text = data[this.id]
+        }
+      }).unsubscribe()
   }
 
 }

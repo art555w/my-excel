@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {StoreService} from "../../store/store.service";
+import {StoreService} from "../../database/services/store.service";
 import {Subscription} from "rxjs";
 
 @Component({

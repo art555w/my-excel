@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Store} from "@ngrx/store";
-import {StoreService} from "../store/store.service";
+import {StoreService} from "../database/services/store.service";
 import {initState} from "../store/actions/excel.actions";
 
 @Component({
@@ -22,8 +22,8 @@ export class TablePageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const id = this.route.snapshot.params['id']
     this.storeService.getById(id).subscribe((state) => {
-      this.storeService.loading = false
       this.store.dispatch(initState({state}))
+      this.storeService.loading = false
     })
   }
 
