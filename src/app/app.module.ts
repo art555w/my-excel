@@ -27,8 +27,9 @@ import {ColComponent} from './shared/components/col/col.component';
 import {GetTitleDirective} from './shared/directives/get-title.directive';
 import {DatabaseModule} from "./database/database.module";
 import {FormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {AuthInterceptor} from "./database/services/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -64,7 +65,11 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     HttpClientModule,
     MatProgressSpinnerModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    multi: true,
+    useClass: AuthInterceptor
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
