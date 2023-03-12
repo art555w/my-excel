@@ -17,6 +17,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   subUpdate!: Subscription
 
   tables: IInitialState[] = []
+  load = true
 
   constructor(
     public authService: AuthService,
@@ -28,11 +29,11 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subUpdate = this.storeService.updateState().subscribe((state) => {
-      console.log(state)
       this.router.navigate(['/table', state.id])
     })
     this.storeService.getAll().subscribe(tables => {
       this.tables = tables
+      this.load = false
     })
   }
 
