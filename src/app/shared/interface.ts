@@ -49,13 +49,16 @@ export interface IDefaultStyle {
   'font-weight'?: string,
   'font-style'?: string,
   'text-decoration'?: string,
-  'text-align'?: string
+  'text-align'?: string,
+  color?: string,
+  'background-color'?: string
 }
 
 export interface IIcons {
   name: string
   active: boolean,
-  style: {}
+  style: {},
+  type?: string,
 }
 
 export interface IUser {
@@ -73,3 +76,4 @@ export interface IFbAuthResponse {
 export interface IFbCreateResponse {
   name: string
 }
+

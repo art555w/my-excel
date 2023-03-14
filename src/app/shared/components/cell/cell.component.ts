@@ -43,7 +43,9 @@ export class CellComponent implements OnInit, AfterViewInit {
       'font-style': 'normal',
       'font-weight': 'normal',
       'text-align': 'left',
-      'text-decoration': 'none'
+      'text-decoration': 'none',
+      color: '#000',
+      'background-color': '#fff'
     }
 
     this.textSelector$

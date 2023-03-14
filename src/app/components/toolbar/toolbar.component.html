@@ -1,15 +1,31 @@
-<div class="toolbar">
-
+<div appChangeColor class="toolbar">
   <ul *ngIf="icons" class="icon">
     <li
-      (click)="onClick(icon)"
+      (click)="onClick($event, icon)"
       *ngFor="let icon of icons"
       class="icon__box">
-      <mat-icon
-        [ngClass]="{'active': icon.active}"
-      >{{ icon.name }}</mat-icon>
+      <button *ngIf="!icon.type">
+        <mat-icon
+          [attr.data-type]="icon.type"
+          [ngClass]="{'active': icon.active}"
+        >{{ icon.name }}</mat-icon>
+      </button>
+      <button *ngIf="icon.type">
+        <mat-icon
+          [attr.data-type]="icon.type"
+          [style]="icon.style"
+        >{{ icon.name }}</mat-icon>
+      </button>
     </li>
-
   </ul>
 
+  <ul *ngIf="toggle" class="colors">
+    <li *ngFor="let data of colors">
+      <div
+        (click)="changeColor(data.color)"
+        [ngClass]="{'c-w': data.color === '#000'}"
+        [ngStyle]="{'background-color': data.color}"
+        class="color"></div>
+    </li>
+  </ul>
 </div>
