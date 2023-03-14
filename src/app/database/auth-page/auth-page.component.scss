@@ -46,6 +46,7 @@ form {
 
   label {
     font-size: 20px;
+    user-select: none;
   }
 
   input {
@@ -60,4 +61,13 @@ form {
       outline: 1px solid #000;
     }
   }
+}
+
+button {
+  margin-right: 40px;
+}
+
+.reg {
+  text-decoration: underline;
+  cursor: pointer;
 }

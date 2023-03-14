@@ -7,7 +7,11 @@ import {AuthGuard} from "./database/services/auth.guard";
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
   {path: 'dashboard', component: DashboardPageComponent},
-  {path: 'table/:id', component: TablePageComponent, canActivate: [AuthGuard]},
+  {
+    path: 'table/:id',
+    component: TablePageComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

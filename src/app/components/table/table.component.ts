@@ -28,7 +28,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   subCol!: Subscription
   subRow!: Subscription
   subStyle!: Subscription
-  subText!: Subscription
 
 
   constructor(
@@ -65,9 +64,6 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       })
     })
     this.subStyle = this.styleSelector$.subscribe((data) => {
-      if (data['1:1']) {
-        this.tableService.applyStyle(data['1:1'])
-      }
       this.cellsRef.forEach(el => {
         if (data[el.id]) {
           el.styles = {...el.styles, ...data[el.id]}
@@ -75,7 +71,10 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       })
     })
     this.cellsRef.forEach(el => {
-      if (el.id === '1:1') this.tableService.applyStyle(el.styles)
+      if (el.id === '1:1') {
+        this.tableService.applyStyle(el.styles)
+        this.selectCellService.selectCell(el.id)
+      }
     })
   }
 

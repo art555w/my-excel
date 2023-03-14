@@ -37,9 +37,7 @@ export class SelectCellDirective implements OnInit, OnDestroy {
     })
     this.subCells = this.allCellService.cellsGroup$.subscribe(el => {
       this.selectCellService.currentCell = el[0]
-      this.selectCellService.selectCell('1:1')
       this.selectCellService.lastId = el[0].nativeElement.id
-      this.selectCell(el[0])
       if (el[0]) {
         this.subCells.unsubscribe()
       }

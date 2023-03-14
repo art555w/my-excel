@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../services/auth.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {IUser} from "../../shared/interface";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-auth-page',
@@ -11,8 +12,9 @@ import {IUser} from "../../shared/interface";
 export class AuthPageComponent implements OnInit {
   form!: FormGroup
   submitted = false
+  reg = false
 
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthService, private router: Router) {
   }
 
 
@@ -26,18 +28,38 @@ export class AuthPageComponent implements OnInit {
 
   submit() {
     this.submitted = true
-    const user: IUser = {
-      email: this.form.value.email,
-      password: this.form.value.password,
+    if (!this.reg) {
+      const user: IUser = {
+        email: this.form.value.email,
+        password: this.form.value.password,
+      }
+
+      this.authService.login(user).subscribe({
+        next: () => {
+          this.submitted = false
+          location.reload()
+        },
+        error: () => {
+          this.submitted = false
+        }
+      })
+    } else {
+      const user: IUser = {
+        email: this.form.value.email,
+        password: this.form.value.password,
+      }
+
+      this.authService.registration(user).subscribe({
+        next: () => {
+          this.submitted = false
+          this.reg = false
+          location.reload()
+        },
+        error: () => {
+          this.submitted = false
+        }
+      })
     }
 
-    this.authService.login(user).subscribe({
-      next: () => {
-        this.submitted = false
-      },
-      error: () => {
-        this.submitted = false
-      }
-    })
   }
 }
