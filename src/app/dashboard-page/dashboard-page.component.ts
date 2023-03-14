@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {Store} from "@ngrx/store";
 import {initState} from "../store/actions/excel.actions";
+import {AllCellService} from "../shared/services/all-cell.service";
 
 @Component({
   selector: 'app-dashboard-page',
@@ -23,18 +24,22 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     public authService: AuthService,
     public storeService: StoreService,
     private router: Router,
-    private store: Store
+    private store: Store,
+    private allCellService: AllCellService
   ) {
   }
 
   ngOnInit() {
-    this.subUpdate = this.storeService.updateState().subscribe((state) => {
-      this.router.navigate(['/table', state.id])
-    })
-    this.storeService.getAll().subscribe(tables => {
-      this.tables = tables
-      this.load = false
-    })
+    this.allCellService.cells = []
+    if (this.authService.isAuthenticated()) {
+      this.subUpdate = this.storeService.updateState().subscribe((state) => {
+        this.router.navigate(['/table', state.id])
+      })
+      this.storeService.getAll().subscribe(tables => {
+        this.tables = tables
+        this.load = false
+      })
+    }
   }
 
   ngOnDestroy() {

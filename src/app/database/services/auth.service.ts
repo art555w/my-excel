@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {catchError, Observable, Subject, tap, throwError} from "rxjs";
+import {catchError, Observable, Subject, switchMap, tap, throwError} from "rxjs";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {IFbAuthResponse, IUser} from "../../shared/interface";
@@ -32,6 +32,17 @@ export class AuthService {
       )
   }
 
+  registration(user: IUser): Observable<any> {
+    user.returnSecureToken = true
+    return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, user)
+      .pipe(
+        switchMap(() => {
+          return this.login(user)
+        }),
+        catchError((this.handleError.bind(this)))
+      )
+  }
+
   handleError(error: HttpErrorResponse): Observable<any> {
     const {message} = error.error.error
     console.log('[ERROR_RESPONSE]', message)
@@ -45,6 +56,10 @@ export class AuthService {
       case 'INVALID_EMAIL':
         this.error$.next('Введите правильный email')
         break
+      case 'EMAIL_EXISTS':
+        this.error$.next('Такой пользователь уже существует')
+        break
+
     }
     return throwError(() => error)
   }

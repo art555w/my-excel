@@ -3,25 +3,69 @@
     <div *ngIf="authService.error$ | async as error" class="alert alert__danger">
       <p>{{ error }}</p>
     </div>
-    <div *ngIf="authService.error$ | async as error" class="alert alert__danger">
-      <p>{{ error }}</p>
-    </div>
 
     <div class="form__control">
       <label for="email">Email:</label>
       <input formControlName="email" id="email" type="email">
+
+      <div class="validate">
+
+        <small *ngIf="form.get('email')?.touched && form.get('email')?.errors?.['required']">
+          <p class="alert__danger">
+            Введите Email
+          </p>
+        </small>
+        <small *ngIf="form.get('email')?.touched && form.get('email')?.errors?.['email']">
+          <p class="alert__danger">
+            Введите корректный Email
+          </p>
+        </small>
+
+      </div>
+
     </div>
     <div class="form__control">
       <label for="password">Password:</label>
       <input formControlName="password" id="password" type="password">
+
+      <div class="validate">
+
+        <small *ngIf="form.get('password')?.touched && form.get('password')?.errors?.['required']">
+          <p class="alert__danger">
+            Введите пароль
+          </p>
+        </small>
+        <small *ngIf="form.get('password')?.touched && form.get('password')?.errors?.['minlength']">
+          <p class="alert__danger">
+            Нужно минимум {{ form.get('password')?.errors?.['minlength']?.['requiredLength'] }} символов.
+            Вы ввели {{form.get('password')?.errors?.['minlength']?.['actualLength']}}
+
+          </p>
+        </small>
+
+      </div>
+
     </div>
 
     <button
+      *ngIf="!reg"
       [disabled]="submitted || form.invalid"
       class="btn btn-primary"
       type="submit"
     >
       Войти
     </button>
+    <button
+      *ngIf="reg"
+      [disabled]="submitted || form.invalid"
+      class="btn btn-primary"
+      type="submit"
+    >
+      Отправить
+    </button>
+
+    <a (click)="reg = !reg" *ngIf="!reg" class="reg">Зарегистрироваться</a>
+    <a (click)="reg = !reg" *ngIf="reg" class="reg">Войти</a>
+
   </form>
 </div>

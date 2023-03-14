@@ -1,14 +1,15 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {IDefaultStyle, IStoreData} from "../../interface";
 import {textSelector} from "../../../store/selectors/excel.selectors";
+import {AllCellService} from "../../services/all-cell.service";
 
 @Component({
   selector: 'app-cell',
   templateUrl: './cell.component.html',
   styleUrls: ['./cell.component.scss']
 })
-export class CellComponent implements OnInit {
+export class CellComponent implements OnInit, AfterViewInit {
   styles!: IDefaultStyle
 
   @Input()
@@ -21,8 +22,17 @@ export class CellComponent implements OnInit {
 
   text = ''
   textSelector$ = this.store.select(textSelector)
+  @ViewChild('cellRef')
+  cellRef!: ElementRef
 
-  constructor(private store: Store) {
+  constructor(
+    private store: Store,
+    private allCellService: AllCellService
+  ) {
+  }
+
+  ngAfterViewInit() {
+    this.allCellService.buildCells(this.cellRef)
   }
 
   ngOnInit(): void {

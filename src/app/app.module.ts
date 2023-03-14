@@ -6,6 +6,9 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 import {AppEffects} from './store/effects/app.effects';
 import {StoreModule} from '@ngrx/store';
+import {FormsModule} from "@angular/forms";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -16,7 +19,6 @@ import {ToolbarComponent} from './components/toolbar/toolbar.component';
 import {FormulaComponent} from './components/formula/formula.component';
 import {TableComponent} from './components/table/table.component';
 import {GetFromCharCodePipe} from "./shared/pipes/get-from-char-code.pipe";
-import {InitCellsDirective} from './shared/directives/init-cells.directive';
 import {ResizeTableDirective} from './shared/resize-table/resize-table.directive';
 import {SelectCellDirective} from './shared/select-cell/select-cell.directive';
 import {MousedownTableDirective} from './shared/directives/mousedown-table.directive';
@@ -26,9 +28,6 @@ import {CellComponent} from './shared/components/cell/cell.component';
 import {ColComponent} from './shared/components/col/col.component';
 import {GetTitleDirective} from './shared/directives/get-title.directive';
 import {DatabaseModule} from "./database/database.module";
-import {FormsModule} from "@angular/forms";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {AuthInterceptor} from "./database/services/auth.interceptor";
 
 @NgModule({
@@ -41,7 +40,6 @@ import {AuthInterceptor} from "./database/services/auth.interceptor";
     FormulaComponent,
     TableComponent,
     GetFromCharCodePipe,
-    InitCellsDirective,
     ResizeTableDirective,
     SelectCellDirective,
     MousedownTableDirective,
