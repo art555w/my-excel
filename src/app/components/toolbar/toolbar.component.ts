@@ -17,12 +17,25 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   icons!: IIcons[]
   ids: string[] = []
   subIcon!: Subscription
+  toggle = false
+  type = ''
+  colors = [
+    {color: '#000'},
+    {color: '#fcd902'},
+    {color: '#00ffdf'},
+    {color: '#e200ff'},
+    {color: '#fff'},
+    {color: '#774c4c'},
+    {color: '#002aff'},
+    {color: '#FF0000FF'},
+    {color: '#00ff66'},
+    {color: '#ccc'}]
 
   constructor(
     private toolbarService: ToolbarService,
     private store: Store,
     private selectCellService: SelectCellService,
-    private tableService: TableService
+    private tableService: TableService,
   ) {
   }
 
@@ -32,7 +45,13 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     })
   }
 
-  onClick(data: IIcons) {
+  onClick(event: any, data: IIcons) {
+    this.type = event.target.dataset.type
+    if (this.type) {
+      this.toggle = !this.toggle
+      return
+    }
+
     this.ids = this.selectCellService.groupId
     this.tableService.applyStyle(data.style)
     this.ids.forEach(id => {
@@ -48,5 +67,16 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     if (this.subIcon) {
       this.subIcon.unsubscribe()
     }
+  }
+
+  changeColor(color: string) {
+    this.ids = this.selectCellService.groupId
+    this.ids.forEach(id => {
+      this.store.dispatch(styleState({
+        data: {[id]: {[this.type]: color}}
+      }))
+    })
+    this.tableService.applyStyle({[this.type]: color})
+    this.toggle = !this.toggle
   }
 }

@@ -13,12 +13,52 @@
 mat-icon {
   line-height: 26px;
 }
+
 .icon {
   height: 40px;
   display: flex;
   align-items: center;
+
   li + li {
     margin-left: 5px;
   }
+}
+
+.colors {
+  position: absolute;
+  background-color: #ffffff;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 172px;
+  z-index: 20;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.19);
+  border-radius: 6px;
+  left: 105px;
+
+  li {
+    margin: 5px;
+  }
+
+  .color {
+    width: 20px;
+    height: 20px;
+    background-color: #555;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::after {
+      content: '✔';
+    }
+  }
+}
+
+.c-w {
+  color: #fff;
 }
 

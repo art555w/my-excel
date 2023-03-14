@@ -61,7 +61,7 @@ import {AuthInterceptor} from "./database/services/auth.interceptor";
     DatabaseModule,
     FormsModule,
     HttpClientModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
