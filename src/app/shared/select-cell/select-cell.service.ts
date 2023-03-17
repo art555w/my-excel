@@ -5,7 +5,6 @@ import {IBorder} from "../interface";
 import {Subject} from "rxjs";
 import {Store} from "@ngrx/store";
 import {textCell} from "../../store/actions/excel.actions";
-import {TableService} from "../services/table.service";
 import {ToolbarService} from "../services/toolbar.service";
 
 @Injectable({
@@ -19,17 +18,19 @@ export class SelectCellService {
   groupId: string[] = []
   currentText = ''
   prevText = ''
+  startPos = ''
 
 
+  selectedPos$: Subject<string> = new Subject<string>()
   selectCell$: Subject<ElementRef> = new Subject<ElementRef>()
   selectGroup$: Subject<ElementRef[]> = new Subject<ElementRef[]>()
+  selectUnited$: Subject<IBorder> = new Subject<IBorder>()
 
   constructor(
     private selectUtilsService: SelectUtilsService,
     private allCellService: AllCellService,
     private store: Store,
-    private tableService: TableService,
-    private tool: ToolbarService
+    private toolbarService: ToolbarService
   ) {
   }
 
@@ -45,7 +46,8 @@ export class SelectCellService {
     this.currentCell = this.allCellService.getCellById(id) ?
       this.allCellService.getCellById(id)
       : this.currentCell
-    this.tableService.selectedPos(this.currentCell.nativeElement.dataset)
+    this.startPos = this.selectedPos(this.currentCell.nativeElement.dataset)
+    this.selectedPos$.next(this.startPos)
     if (this.prevText.trim() !== this.currentText.trim()) {
       this.store.dispatch(textCell({
         data: {
@@ -61,13 +63,29 @@ export class SelectCellService {
 
   selectGroup(lastId: string): void {
     this.clear()
+    this.lastId = lastId
     this.groupId = this.selectUtilsService.getAllIdSelectedCells(this.currentId, lastId)
     this.groupCells = this.allCellService.getGroupCells(this.groupId)
     this.selectGroup$.next(this.groupCells)
+    const lastPos = this.selectedPos(this.allCellService.getCellById(lastId).nativeElement.dataset)
+    if (this.startPos === lastPos) {
+      this.selectedPos$.next(this.startPos)
+      return
+    }
+    this.selectedPos$.next(`${this.startPos}:${lastPos}`)
+  }
+
+  selectUnited() {
+    this.selectUnited$.next(this.selectBorder())
   }
 
   selectBorder(): IBorder {
     return this.selectUtilsService.getBorder(this.groupId)
+  }
+
+  selectedPos(data: { [key: string]: any }): string {
+    const {col, row} = data
+    return `${col}${row}`
   }
 
   clear() {

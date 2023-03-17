@@ -4,6 +4,7 @@ import {AllCellService} from "../services/all-cell.service";
 import {FormulaService} from "../services/formula.service";
 import {TableService} from "../services/table.service";
 import {Subscription} from "rxjs";
+import {IBorder} from "../interface";
 
 @Directive({
   selector: '[appSelectCell]'
@@ -29,6 +30,9 @@ export class SelectCellDirective implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.selectCellService.selectUnited$.subscribe(b => {
+      this.selectUnited(b)
+    })
     this.subSelCell = this.selectCellService.selectCell$.subscribe((cell) => {
       this.selectCell(cell)
     })
@@ -61,7 +65,6 @@ export class SelectCellDirective implements OnInit, OnDestroy {
     })
     this.tableService.tableInput(this.currentCell.nativeElement.textContent)
     this.renderer.addClass(this.currentCell.nativeElement, 'selected')
-
   }
 
   selectGroup(cells: ElementRef[]): void {
@@ -72,7 +75,7 @@ export class SelectCellDirective implements OnInit, OnDestroy {
     this.groupCell.forEach(cell => {
       this.renderer.addClass(cell.nativeElement, 'selected-group')
     })
-    this.addBorder()
+    this.addBorder('1px')
   }
 
   selectionParent(el: ElementRef) {
@@ -86,20 +89,46 @@ export class SelectCellDirective implements OnInit, OnDestroy {
     this.els.forEach(el => this.renderer.addClass(el, 'bg-sel'))
   }
 
-  addBorder(): void {
-    const border = this.selectCellService.selectBorder()
+  addBorder(px: string): void {
+    const border: { [key: string]: any } = this.selectCellService.selectBorder()
     this.groupCell.forEach(cell => {
       Object.keys(border).forEach(key => {
-        // @ts-ignore
         if (border[key].includes(cell.nativeElement.id)) {
-          this.renderer.addClass(cell.nativeElement, key)
+          this.renderer.addClass(cell.nativeElement, key + `-${px}`)
         }
       })
     })
   }
 
+  selectUnited(b: IBorder) {
+    this.clear()
+    this.addBorder('2px')
+    // const borderSide = ['top', 'left', 'right', 'bottom']
+    // this.groupCell.forEach(el => {
+    //   Object.keys(b).forEach(key => {
+    //     borderSide.forEach((side) => {
+    //       // @ts-ignore
+    //       if (key.includes(side) && b[key].includes(el.nativeElement.id)) {
+    //         console.log(el.nativeElement.id, side)
+    //         this.renderer.setStyle(el.nativeElement, `border-${side}`, '2px solid #red')
+    //       }
+    //     })
+    //   })
+    // })
+  }
+
   clear() {
-    const clearClass = ['selected-group', 'selected', 'b-top', 'b-right', 'b-left', 'b-bottom']
+    const clearClass = [
+      'selected-group',
+      'selected',
+      'b-top-1px',
+      'b-right-1px',
+      'b-left-1px',
+      'b-bottom-1px',
+      'b-top-2px',
+      'b-right-2px',
+      'b-left-2px',
+      'b-bottom-2px']
     this.allCellService.getCells().forEach(cell => {
       clearClass.forEach(cl => {
         this.renderer.removeClass(cell.nativeElement, cl)

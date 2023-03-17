@@ -119,16 +119,23 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   border-radius: 3px;
 
-  &:hover {
-    background-color: rgba(204, 204, 204, 0.42);
+  &:disabled {
+    mat-icon {
+      color: rgba(0, 0, 0, 0.2);
+      cursor: not-allowed;
+    }
   }
 
   mat-icon {
-    font-size: 18px;
+    font-size: 20px;
     line-height: 23px;
     cursor: pointer;
     border-radius: 3px;
     color: rgba(0, 0, 0, 0.7);
+
+    &:hover {
+      background-color: rgba(204, 204, 204, 0.42);
+    }
 
     &.active {
       background-color: rgb(103 177 103 / 17%);
@@ -262,28 +269,57 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .selected-group {
-  background-color: rgba(124, 176, 255, 0.21);
+  background-color: rgba(124, 176, 255, 0.21) !important;
 }
 
-.b-top {
+.b-none {
+  border: none;
+}
+
+.right {
+  border-right: 1px solid #ccc;
+}
+
+.bottom {
+  border-bottom: 1px solid #ccc;
+}
+
+.b-top-1px {
   border-top: 1px solid blue;
 }
 
-.b-right {
+.b-right-1px {
   border-right: 1px solid blue;
 }
 
-.b-left {
+.b-left-1px {
   border-left: 1px solid blue;
 }
 
-.b-bottom {
+.b-bottom-1px {
   border-bottom: 1px solid blue;
 }
 
+.b-top-2px {
+  border-top: 2px solid blue;
+}
+
+.b-right-2px {
+  border-right: 2px solid blue;
+}
+
+.b-left-2px {
+  border-left: 2px solid blue;
+}
+
+.b-bottom-2px {
+  border-bottom: 2px solid blue;
+}
+
+
 .selected {
   border: 2px solid blue;
-  background-color: transparent;
+  background-color: transparent !important;
   cursor: text;
 }
 

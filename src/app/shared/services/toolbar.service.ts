@@ -15,59 +15,59 @@ export class ToolbarService {
     "text-decoration": 'none',
     "font-weight": 'normal',
     color: '#000',
-    'background-color': '#fff'
+    'background-color': '#fff',
   }
 
   constructor() {
   }
 
-  setIcons(style: IDefaultStyle | void): void {
-    if (!style) {
-      style = this.defaultStyle
+  setIcons(data: IDefaultStyle | void): void {
+    if (!data) {
+      data = this.defaultStyle
     }
 
     this.icons$.next([
       {
         name: 'format_bold',
-        active: style['font-weight'] === 'bold',
-        style: {'font-weight': style["font-weight"] === 'bold' ? 'normal' : 'bold'}
+        active: data['font-weight'] === 'bold',
+        style: {'font-weight': data["font-weight"] === 'bold' ? 'normal' : 'bold'}
       },
       {
         name: 'format_italic',
-        active: style['font-style'] === 'italic',
-        style: {'font-style': style["font-style"] === 'italic' ? 'normal' : 'italic'}
+        active: data['font-style'] === 'italic',
+        style: {'font-style': data["font-style"] === 'italic' ? 'normal' : 'italic'}
       },
       {
         name: 'strikethrough_s',
-        active: style['text-decoration'] === 'line-through',
-        style: {'text-decoration': style["text-decoration"] === 'line-through' ? 'none' : 'line-through'}
+        active: data['text-decoration'] === 'line-through',
+        style: {'text-decoration': data["text-decoration"] === 'line-through' ? 'none' : 'line-through'}
       },
       {
         name: 'format_color_text',
         active: false,
-        style: {'color': style.color},
+        style: {'color': data.color},
         type: 'color',
       },
       {
         name: 'format_align_left',
-        active: style['text-align'] === 'left',
+        active: data['text-align'] === 'left',
         style: {'text-align': 'left'}
       },
       {
         name: 'format_align_center',
-        active: style['text-align'] === 'center',
+        active: data['text-align'] === 'center',
         style: {'text-align': 'center'}
       },
       {
         name: 'format_align_right',
-        active: style['text-align'] === 'right',
+        active: data['text-align'] === 'right',
         style: {'text-align': 'right'}
       },
       {
         name: 'format_color_fill',
         active: false,
         type: 'background-color',
-        style: {'background-color': style['background-color']},
+        style: {'background-color': data['background-color']},
       },
     ])
   }

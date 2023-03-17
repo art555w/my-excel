@@ -29,6 +29,7 @@ import {ColComponent} from './shared/components/col/col.component';
 import {GetTitleDirective} from './shared/directives/get-title.directive';
 import {DatabaseModule} from "./database/database.module";
 import {AuthInterceptor} from "./database/services/auth.interceptor";
+import {UnitDirective} from './shared/united-cell/unit.directive';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import {AuthInterceptor} from "./database/services/auth.interceptor";
     CellComponent,
     ColComponent,
     GetTitleDirective,
+    UnitDirective,
   ],
   imports: [
     BrowserModule,
