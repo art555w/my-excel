@@ -4,28 +4,41 @@
       (click)="onClick($event, icon)"
       *ngFor="let icon of icons"
       class="icon__box">
-      <button *ngIf="!icon.type">
+      <a *ngIf="!icon.type">
         <mat-icon
           [attr.data-type]="icon.type"
           [ngClass]="{'active': icon.active}"
         >{{ icon.name }}</mat-icon>
-      </button>
-      <button *ngIf="icon.type">
+      </a>
+      <a
+        *ngIf="icon.type"
+        class="dropdown-box">
         <mat-icon
           [attr.data-type]="icon.type"
           [style]="icon.style"
         >{{ icon.name }}</mat-icon>
+        <ul
+          *ngIf="type === icon.type && toggle"
+          class="dropdown">
+          <li *ngFor="let data of colors">
+            <div
+              (click)="changeColor(data.color)"
+              [ngClass]="{'c-w': data.color === '#000'}"
+              [ngStyle]="{'background-color': data.color}"
+              class="item"></div>
+          </li>
+        </ul>
+      </a>
+    </li>
+    <li>
+      <button
+        [disabled]="unitService.united"
+        appUnit
+        class="icon__box">
+        <mat-icon>settings_overscan</mat-icon>
       </button>
     </li>
   </ul>
 
-  <ul *ngIf="toggle" class="colors">
-    <li *ngFor="let data of colors">
-      <div
-        (click)="changeColor(data.color)"
-        [ngClass]="{'c-w': data.color === '#000'}"
-        [ngStyle]="{'background-color': data.color}"
-        class="color"></div>
-    </li>
-  </ul>
+
 </div>

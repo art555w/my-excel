@@ -51,7 +51,11 @@ export interface IDefaultStyle {
   'text-decoration'?: string,
   'text-align'?: string,
   color?: string,
-  'background-color'?: string
+  'background-color'?: string,
+  'border-right'?: string
+  'border-bottom'?: string,
+  'border-top'?: string,
+  'border-left'?: string
 }
 
 export interface IIcons {
@@ -59,6 +63,7 @@ export interface IIcons {
   active: boolean,
   style: {},
   type?: string,
+  disable?: boolean
 }
 
 export interface IUser {

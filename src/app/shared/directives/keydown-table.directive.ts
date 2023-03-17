@@ -2,6 +2,8 @@ import {Directive, ElementRef, HostListener, OnInit, Renderer2} from '@angular/c
 import {SelectCellService} from "../select-cell/select-cell.service";
 import {SelectUtilsService} from "../select-cell/select-utils.service";
 import {TableService} from "../services/table.service";
+import {AllCellService} from "../services/all-cell.service";
+import {UnitService} from "../united-cell/unit.service";
 
 @Directive({
   selector: '[appKeydownTable]'
@@ -11,12 +13,17 @@ export class KeydownTableDirective implements OnInit {
   lastId = ''
   currentCell!: ElementRef
   text = ''
+  start = ''
+  finish = ''
+  inUnited = false
 
   constructor(
     private selectCellService: SelectCellService,
     private selectUtils: SelectUtilsService,
     private renderer: Renderer2,
     private tableService: TableService,
+    private allCellService: AllCellService,
+    private unitService: UnitService
   ) {
   }
 
@@ -34,6 +41,18 @@ export class KeydownTableDirective implements OnInit {
         if (!event.shiftKey) {
           event.preventDefault()
           this.nextId = this.selectUtils.nextCell(key, this.nextId)
+          const nextCell = this.allCellService.getCellById(this.nextId)
+          if (this.inUnited) {
+            this.inUnited = false
+            this.unitService.nextCell(key, this.start, this.finish)
+            return
+          }
+          if (nextCell.nativeElement.dataset.unit) {
+            [this.start, this.finish] = nextCell.nativeElement.dataset.unit.split('-')
+            this.unitService.handleUnit(this.start, this.finish)
+            this.inUnited = true
+            return
+          }
           this.selectCellService.selectCell(this.nextId)
         } else {
           event.preventDefault()

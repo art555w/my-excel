@@ -78,9 +78,9 @@
 .list__item {
 
   li {
-    border-radius: 25px;
-    margin-bottom: 10px;
     position: relative;
+    border-bottom: 1px solid #ccc;
+
 
     .btn-remove {
       position: absolute;
@@ -93,6 +93,7 @@
 
     &:hover {
       background-color: rgba(94, 148, 89, 0.49);
+      border-radius: 25px;
 
       .btn-remove {
         right: 12px;
@@ -122,3 +123,4 @@
   }
 
 }
+

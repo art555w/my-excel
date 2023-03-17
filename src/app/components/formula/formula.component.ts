@@ -35,7 +35,7 @@ export class FormulaComponent implements OnInit, OnDestroy {
     this.subInput = this.tableService.tableInput$.subscribe(text => {
       this.text = text
     })
-    this.subSelect = this.tableService.selectedPos$.subscribe(id => {
+    this.subSelect = this.selectCellService.selectedPos$.subscribe(id => {
       this.selectedPos = id
       this.infoRef.nativeElement.textContent = id
     })
