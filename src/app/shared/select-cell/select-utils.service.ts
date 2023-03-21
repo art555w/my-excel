@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
+
 import {IBorder, IId} from "../interface";
-import {TableComponent} from "../../components/table/table.component";
 import {TableTemplateService} from "../services/table-template.service";
 
 @Injectable({
@@ -81,7 +81,7 @@ export class SelectUtilsService {
         row = row === amountRows ? amountRows : row + 1
         break
       case 'ArrowLeft':
-        col = col === MIN_VALUE ?MIN_VALUE : col - 1
+        col = col === MIN_VALUE ? MIN_VALUE : col - 1
         break
       case 'ArrowUp':
         row = row === MIN_VALUE ? MIN_VALUE : row - 1

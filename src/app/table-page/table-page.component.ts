@@ -1,6 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Store} from "@ngrx/store";
+import {Subscription} from "rxjs";
+
 import {StoreService} from "../database/services/store.service";
 import {initState} from "../store/actions/excel.actions";
 
@@ -11,6 +13,7 @@ import {initState} from "../store/actions/excel.actions";
 })
 export class TablePageComponent implements OnInit, OnDestroy {
   id = ''
+  subId!: Subscription
 
   constructor(
     private route: ActivatedRoute,
@@ -21,13 +24,16 @@ export class TablePageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const id = this.route.snapshot.params['id']
-    this.storeService.getById(id).subscribe((state) => {
+    this.subId = this.storeService.getById(id).subscribe((state) => {
       this.store.dispatch(initState({state}))
       this.storeService.loading = false
     })
   }
 
   ngOnDestroy() {
+    if (this.subId) {
+      this.subId.unsubscribe()
+    }
   }
 
 }

@@ -1,9 +1,10 @@
 import {Directive, ElementRef, OnDestroy, OnInit, Renderer2} from '@angular/core';
+import {Subscription} from "rxjs";
+
 import {SelectCellService} from "./select-cell.service";
 import {AllCellService} from "../services/all-cell.service";
 import {FormulaService} from "../services/formula.service";
 import {TableService} from "../services/table.service";
-import {Subscription} from "rxjs";
 import {IBorder} from "../interface";
 
 @Directive({
@@ -75,7 +76,6 @@ export class SelectCellDirective implements OnInit, OnDestroy {
     this.groupCell.forEach(cell => {
       this.renderer.addClass(cell.nativeElement, 'selected-group')
     })
-    this.addBorder('1px')
   }
 
   selectionParent(el: ElementRef) {
@@ -103,18 +103,6 @@ export class SelectCellDirective implements OnInit, OnDestroy {
   selectUnited(b: IBorder) {
     this.clear()
     this.addBorder('2px')
-    // const borderSide = ['top', 'left', 'right', 'bottom']
-    // this.groupCell.forEach(el => {
-    //   Object.keys(b).forEach(key => {
-    //     borderSide.forEach((side) => {
-    //       // @ts-ignore
-    //       if (key.includes(side) && b[key].includes(el.nativeElement.id)) {
-    //         console.log(el.nativeElement.id, side)
-    //         this.renderer.setStyle(el.nativeElement, `border-${side}`, '2px solid #red')
-    //       }
-    //     })
-    //   })
-    // })
   }
 
   clear() {

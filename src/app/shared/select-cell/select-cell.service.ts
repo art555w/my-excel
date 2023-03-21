@@ -1,11 +1,11 @@
 import {ElementRef, Injectable} from '@angular/core';
+import {Subject} from "rxjs";
+import {Store} from "@ngrx/store";
+
 import {SelectUtilsService} from "./select-utils.service";
 import {AllCellService} from "../services/all-cell.service";
 import {IBorder} from "../interface";
-import {Subject} from "rxjs";
-import {Store} from "@ngrx/store";
 import {textCell} from "../../store/actions/excel.actions";
-import {ToolbarService} from "../services/toolbar.service";
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +30,6 @@ export class SelectCellService {
     private selectUtilsService: SelectUtilsService,
     private allCellService: AllCellService,
     private store: Store,
-    private toolbarService: ToolbarService
   ) {
   }
 
@@ -73,10 +72,6 @@ export class SelectCellService {
       return
     }
     this.selectedPos$.next(`${this.startPos}:${lastPos}`)
-  }
-
-  selectUnited() {
-    this.selectUnited$.next(this.selectBorder())
   }
 
   selectBorder(): IBorder {

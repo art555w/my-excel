@@ -1,9 +1,10 @@
 import {Directive, ElementRef, HostListener, OnDestroy, OnInit, Renderer2} from '@angular/core';
-import {SelectCellService} from "../select-cell/select-cell.service";
 import {Store} from "@ngrx/store";
+import {Subscription} from "rxjs";
+
+import {SelectCellService} from "../select-cell/select-cell.service";
 import {titleState} from "../../store/actions/excel.actions";
 import {titleSelector} from "../../store/selectors/excel.selectors";
-import {Subscription} from "rxjs";
 
 @Directive({
   selector: '[appGetTitle]'

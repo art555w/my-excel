@@ -1,8 +1,9 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {IDefaultStyle, IStoreData} from "../../interface";
-import {textSelector} from "../../../store/selectors/excel.selectors";
-import {AllCellService} from "../../services/all-cell.service";
+
+import {IDefaultStyle, IStoreData} from "../../shared/interface";
+import {textSelector} from "../../store/selectors/excel.selectors";
+import {AllCellService} from "../../shared/services/all-cell.service";
 
 @Component({
   selector: 'app-cell',
@@ -45,11 +46,6 @@ export class CellComponent implements OnInit, AfterViewInit {
       'text-align': 'left',
       'text-decoration': 'none',
       color: '#000',
-      // 'border-right': '1px solid #ccc',
-      // 'border-bottom': '1px solid #ccc',
-      // 'border-top': 'none',
-      // 'border-left': 'none'
-
     }
 
     this.textSelector$

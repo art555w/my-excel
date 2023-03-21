@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {IInitialState} from "../../store/state/excel.state";
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
 import {map, Observable, skip, switchMap} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+
+import {IInitialState} from "../../store/state/excel.state";
+import {environment} from "../../../environments/environment";
 import {IFbCreateResponse, IStoreData} from "../../shared/interface";
 
 @Injectable({

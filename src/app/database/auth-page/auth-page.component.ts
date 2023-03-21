@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../services/auth.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+
+import {AuthService} from "../services/auth.service";
 import {IUser} from "../../shared/interface";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-auth-page',
@@ -14,9 +14,8 @@ export class AuthPageComponent implements OnInit {
   submitted = false
   reg = false
 
-  constructor(public authService: AuthService, private router: Router) {
+  constructor(public authService: AuthService) {
   }
-
 
   ngOnInit() {
     this.form = new FormGroup({

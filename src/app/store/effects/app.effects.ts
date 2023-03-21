@@ -14,25 +14,6 @@ export class AppEffects {
       return updatedState({update: true})
     })
   ))
-  // initState$ = createEffect(() => this.actions$.pipe(
-  //   ofType(initState),
-  //   map((action) => {
-  //     return updatedState({
-  //       update: true,
-  //       initState: action.state
-  //     })
-  //   })
-  // ))
-  // createState$ = createEffect(() => this.actions$.pipe(
-  //   ofType(createState),
-  //   map((action) => {
-  //     return updatedState({
-  //       update: true,
-  //       initState: {...this.storeService.getState(action.id)}
-  //     })
-  //   })
-  // ))
-
 
   constructor(
     private actions$: Actions,

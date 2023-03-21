@@ -1,7 +1,8 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Subscription} from "rxjs";
+
 import {FormulaService} from "../../shared/services/formula.service";
 import {TableService} from "../../shared/services/table.service";
-import {Subscription} from "rxjs";
 import {SelectCellService} from "../../shared/select-cell/select-cell.service";
 
 @Component({

@@ -1,12 +1,13 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {TableTemplateService} from "../../shared/services/table-template.service";
-import {Store} from "@ngrx/store";
-import {colSelector, rowSelector, stylesSelector} from "../../store/selectors/excel.selectors";
-import {CellComponent} from "../../shared/components/cell/cell.component";
-import {IStoreData} from "../../shared/interface";
-import {ColComponent} from "../../shared/components/col/col.component";
-import {SelectCellService} from "../../shared/select-cell/select-cell.service";
 import {Subscription} from "rxjs";
+import {Store} from "@ngrx/store";
+
+import {TableTemplateService} from "../../shared/services/table-template.service";
+import {colSelector, rowSelector, stylesSelector} from "../../store/selectors/excel.selectors";
+import {CellComponent} from "../cell/cell.component";
+import {IStoreData} from "../../shared/interface";
+import {ColComponent} from "../col/col.component";
+import {SelectCellService} from "../../shared/select-cell/select-cell.service";
 import {TableService} from "../../shared/services/table.service";
 
 @Component({

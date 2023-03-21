@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Subject} from "rxjs";
+
 import {ToolbarService} from "./toolbar.service";
 import {IDefaultStyle} from "../interface";
 

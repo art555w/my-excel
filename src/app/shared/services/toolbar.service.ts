@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {IDefaultStyle, IIcons} from "../interface";
 import {Subject} from "rxjs";
+
+import {IDefaultStyle, IIcons} from "../interface";
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +17,6 @@ export class ToolbarService {
     "font-weight": 'normal',
     color: '#000',
     'background-color': '#fff',
-  }
-
-  constructor() {
   }
 
   setIcons(data: IDefaultStyle | void): void {

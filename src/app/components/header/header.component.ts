@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {StoreService} from "../../database/services/store.service";
 import {Subscription} from "rxjs";
+
+import {StoreService} from "../../database/services/store.service";
 
 @Component({
   selector: 'app-header',
@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   id = ''
   subUpdate!: Subscription
 
-  constructor(public storeService: StoreService, private route: ActivatedRoute) {
+  constructor(public storeService: StoreService) {
   }
 
   ngOnInit() {
@@ -23,6 +23,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    if (this.subUpdate) {
+      this.subUpdate.unsubscribe()
+    }
   }
 
 }

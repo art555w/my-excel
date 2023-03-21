@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Store} from "@ngrx/store";
+import {Subscription} from "rxjs";
+
 import {IIcons} from "../../shared/interface";
 import {styleState} from "../../store/actions/excel.actions";
 import {ToolbarService} from "../../shared/services/toolbar.service";
-import {Store} from "@ngrx/store";
 import {SelectCellService} from "../../shared/select-cell/select-cell.service";
-import {Subscription} from "rxjs";
 import {TableService} from "../../shared/services/table.service";
-import {UnitService} from "../../shared/united-cell/unit.service";
 
 @Component({
   selector: 'app-toolbar',
@@ -36,7 +36,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private toolbarService: ToolbarService,
     private store: Store,
     private selectCellService: SelectCellService,
-    public unitService: UnitService,
     private tableService: TableService,
   ) {
   }

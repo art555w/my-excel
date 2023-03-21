@@ -1,10 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from "../database/services/auth.service";
-import {StoreService} from "../database/services/store.service";
-import {IInitialState, initialState} from "../store/state/excel.state";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {Store} from "@ngrx/store";
+
+import {AuthService} from "../database/services/auth.service";
+import {StoreService} from "../database/services/store.service";
+import {IInitialState, initialState} from "../store/state/excel.state";
 import {initState} from "../store/actions/excel.actions";
 import {AllCellService} from "../shared/services/all-cell.service";
 
